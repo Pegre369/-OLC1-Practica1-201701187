@@ -5,11 +5,30 @@
  */
 package Practica_1;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Casca
  */
 public class Interfaz extends javax.swing.JFrame {
+
+    public static String ruta, nombreArchivo;
+    public static String temporal = " ";
+    public static ArrayList<Tokens> Acepatacion = new ArrayList<Tokens>();
+    public static ArrayList<Tokens> ErrorLista = new ArrayList<Tokens>();
+    public int fila = 1;
+    public int columna = 0;
 
     /**
      * Creates new form Interfaz
@@ -28,17 +47,34 @@ public class Interfaz extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        comando = new javax.swing.JTextPane();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(null);
 
-        jMenu1.setText("Archivo");
+        comando.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jScrollPane1.setViewportView(comando);
 
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 50, 480, 380);
+
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jLabel1.setText("Archivo de Entrada");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(30, 20, 170, 26);
+
+        jMenu1.setText("Archivo");
+        jMenu1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        jMenuItem1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         jMenuItem1.setText("Abrir");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,7 +85,13 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Acciones");
+        jMenu2.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        jMenuItem2.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jMenuItem2.setText("Generar Automata");
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -62,32 +104,199 @@ public class Interfaz extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        System.out.println("Sirve");
+        try {
+            open();
+        } catch (IOException ex) {
+            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    private void open() throws IOException {
+
+        JFileChooser JFC = new JFileChooser();
+        JFC.setFileFilter(new FileNameExtensionFilter("todos los archivos *.er", "er", "ER"));
+        int abrir = JFC.showDialog(null, "Abrir");
+        if (abrir == JFileChooser.APPROVE_OPTION) {
+
+            FileReader FR = null;
+            BufferedReader BR = null;
+
+            try {
+
+                File archivo = JFC.getSelectedFile();
+                String rut = JFC.getSelectedFile().getAbsolutePath();
+                if (rut.endsWith(".er") || rut.endsWith(".ER")) {
+
+                    FR = new FileReader(archivo);
+                    BR = new BufferedReader(FR);
+                    String linea;
+                    String contenido = "";
+                    ruta = archivo.getAbsolutePath();
+                    comando.setText(null);
+                    while ((linea = BR.readLine()) != null) {
+                        contenido += linea + "\n";
+                    }
+                    comando.setText(contenido);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Archivo no soportado", "Oops! Error", JOptionPane.ERROR_MESSAGE);
+                    open();
+                }
+
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    if (null != FR) {
+                        FR.close();
+                    }
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
+
+    //SCANER
+    public void Aceptar(String descripcion, String lexema, int fila, int columna, int id) {
+        Tokens nuevo = new Tokens(descripcion, lexema, fila, columna, id);
+        Acepatacion.add(nuevo);
+    }
+
+    public void Scanner() {
+
+        String Lexema = "";
+        String Documento = comando.getText();
+        char caracter = ' ';
+        int estado = 0;
+        int comillas = 0;
+        int identificador = 0;
+
+        for (int i = 0; i < Documento.length(); i++) {
+
+            caracter = Documento.charAt(i);
+
+             switch (estado) {
+                 
+                 case 0:
+                     
+                     // Verificacion de Simbolos Permitidos #,$,%,&,',(,),*,+,,,-,.,:,=,?,@,[,\,],^,_,`,{,|,}
+                     if (caracter==(char)35) {
+                         Aceptar("Numeral", Character.toString(caracter), fila, columna, 6);
+                         estado=0;
+                     }else if(caracter==(char)36){
+                         Aceptar("Signo de Pesos", Character.toString(caracter), fila, columna, 7);
+                         estado=0;
+                     }else if(caracter==(char)37){
+                         Aceptar("Signo de Porcentaje", Character.toString(caracter), fila, columna, 8);
+                         estado=0;
+                     }else if(caracter==(char)38){
+                         Aceptar("Ampersand", Character.toString(caracter), fila, columna, 9);
+                         estado=0;
+                     }else if(caracter==(char)39){
+                         Aceptar("Comillas simple", Character.toString(caracter), fila, columna, 10);
+                         estado=0;
+                     }else if(caracter==(char)40){
+                         Aceptar("Parentesis que abre", Character.toString(caracter), fila, columna, 11);
+                         estado=0;
+                     }else if(caracter==(char)41){
+                         Aceptar("Parentesis que cierra", Character.toString(caracter), fila, columna, 12);
+                         estado=0;
+                     }else if(caracter==(char)42){
+                         Aceptar("Asterisco", Character.toString(caracter), fila, columna, 13);
+                         estado=0;
+                     }else if(caracter==(char)43){
+                         Aceptar("Signo más", Character.toString(caracter), fila, columna, 14);
+                         estado=0;
+                     }else if(caracter==(char)44){
+                         Aceptar("Coma", Character.toString(caracter), fila, columna, 15);
+                         estado=0;
+                     }else if(caracter==(char)45){
+                         Aceptar("Signo menos", Character.toString(caracter), fila, columna, 16);
+                         estado=0;
+                     }else if(caracter==(char)46){
+                         Aceptar("Punto", Character.toString(caracter), fila, columna, 17);
+                         estado=0;
+                     }else if(caracter==(char)58){
+                         Aceptar("Punto", Character.toString(caracter), fila, columna, 18);
+                         estado=0;
+                     }else if(caracter==(char)61){
+                         Aceptar("Signo igual", Character.toString(caracter), fila, columna, 19);
+                         estado=0;
+                     }else if(caracter==(char)63){
+                         Aceptar("Signo de interrogación", Character.toString(caracter), fila, columna, 20);
+                         estado=0;
+                     }else if(caracter==(char)64){
+                         Aceptar("Arroba", Character.toString(caracter), fila, columna, 21);
+                         estado=0;
+                     }else if(caracter==(char)91){
+                         Aceptar("Corchete que abre", Character.toString(caracter), fila, columna, 22);
+                         estado=0;
+                     }else if(caracter==(char)92){
+                         Aceptar("Diagonal invertida", Character.toString(caracter), fila, columna, 23);
+                         estado=0;
+                     }else if(caracter==(char)93){
+                         Aceptar("Corchete que cierra", Character.toString(caracter), fila, columna, 24);
+                         estado=0;
+                     }else if(caracter==(char)94){
+                         Aceptar("Acento circunflejo", Character.toString(caracter), fila, columna, 25);
+                         estado=0;
+                     }else if(caracter==(char)95){
+                         Aceptar("Guion bajo", Character.toString(caracter), fila, columna, 26);
+                         estado=0;
+                     }else if(caracter==(char)96){
+                         Aceptar("Acento grave", Character.toString(caracter), fila, columna, 27);
+                         estado=0;
+                     }else if(caracter==(char)123){
+                         Aceptar("Llave que abre", Character.toString(caracter), fila, columna, 28);
+                         estado=0;
+                     }else if(caracter==(char)124){
+                         Aceptar("Barra Vertical", Character.toString(caracter), fila, columna, 29);
+                         estado=0;
+                     }else if(caracter==(char)125){
+                         Aceptar("Llave que cierra", Character.toString(caracter), fila, columna, 30);
+                         estado=0;
+                     }else if(caracter==(char)59){
+                         Aceptar("Punto y coma", Character.toString(caracter), fila, columna, 31);
+                         estado=0;
+                     }
+                    //Verficar si es salto de linea
+                    else if (caracter == '\n') {
+                        columna = 1;
+                        fila++;
+                        estado = 0;
+                    }
+                    //Si es un espacio en blanco, tab, etc.
+                    else if (caracter == ' ' | caracter == '\t' | caracter == '\b' | caracter == '\r' | caracter == '\f') {
+                        
+                    }else {
+                        Tokens Error = new Tokens("Error Lexico", Character.toString(caracter), fila, columna, 0);
+                        ErrorLista.add(Error);
+                        Lexema = "";
+                        estado = 0;
+                    }
+                 break; 
+                     
+                 
+                 
+             }
+            
+            
+            
+            
+            columna++;
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -124,10 +333,14 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane comando;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

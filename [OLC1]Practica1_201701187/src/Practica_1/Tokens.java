@@ -18,6 +18,10 @@ public class Tokens {
         this.columna = columna;
     }
 
+    Tokens(String descripcion, String lexema, int fila, int columna, int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getLexema() {
         return lexema;
     }
