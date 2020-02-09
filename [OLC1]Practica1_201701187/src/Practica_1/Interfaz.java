@@ -267,6 +267,12 @@ public class Interfaz extends javax.swing.JFrame {
                      }else if(caracter==(char)59){
                          Aceptar("Punto y coma", Character.toString(caracter), fila, columna, 31);
                          estado=0;
+                     }else if(caracter==(char)33){
+                         Aceptar("Signo de admiración", Character.toString(caracter), fila, columna, 35);
+                         estado=0;
+                     }else if(caracter==(char)62){
+                         Aceptar("Mayor que", Character.toString(caracter), fila, columna, 36);
+                         estado=0;
                      }//Verificar si es Leta
                      else if(Character.isLetter(caracter)){
                          Lexema += caracter;
@@ -283,6 +289,10 @@ public class Interfaz extends javax.swing.JFrame {
                      else if(caracter==(char)60){
                          Lexema += caracter;
                          estado = 5;
+                     }//Verificar si son Comillas
+                     else if(caracter==(char)34){
+                         Lexema += caracter;
+                         estado = 8;
                      }//Verficar si es salto de linea
                     else if (caracter == '\n') {
                         columna = 1;
@@ -299,7 +309,6 @@ public class Interfaz extends javax.swing.JFrame {
                         estado = 0;
                     }
                  break; 
-                 
                  
                  case 1:
                      
@@ -372,12 +381,58 @@ public class Interfaz extends javax.swing.JFrame {
                  case 5:
                      
                      //Verificar si es !
-                     
-                     
+                     if(caracter==(char)33){
+                         Lexema+=caracter;
+                         estado=6;
+                     }else{
+                         Aceptar("Menor que", Lexema, fila, columna, 34);
+                         Lexema="";
+                         estado = 0;
+                         i--;
+                     }    
                      
                  break;
                  
+                 case 6:
+                     
+                    if(caracter!=(char)33){
+                        Lexema+=caracter;
+                        estado = 6;
+                    }else{
+                      Lexema+=caracter;
+                      estado = 7;  
+                 }
+                 break;    
                  
+                 case 7: 
+                 
+                     //Verificar si es >
+                     if(caracter==(char)62){
+                         Lexema+=caracter;
+                         Aceptar("Comentario Multilineas", Lexema, fila, columna, 3);
+                         Lexema = "";
+                         estado = 0;
+                     }else{
+                         Lexema+=caracter;
+                         estado = 6;
+                     } 
+                     
+                 break;
+                 
+                 case 8:
+                     
+                     if(caracter!=(char)34){
+                         Lexema+=caracter;
+                         estado = 8;
+                     }else{
+                         Lexema+=caracter;
+                         Aceptar("Lexema de entrada", Lexema, fila, columna, 4);
+                         Lexema = "";
+                         comillas = 0;
+                         estado = 0;
+                     }
+                     
+                 break;    
              }
              columna++;
         }
