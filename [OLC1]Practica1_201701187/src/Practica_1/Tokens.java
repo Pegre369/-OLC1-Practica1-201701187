@@ -10,16 +10,12 @@ public class Tokens {
         private int fila;
         private int columna;
 
-    public Tokens(String lexema, int id, String descripcion, int fila, int columna) {
+    public Tokens( String descripcion, String lexema, int fila, int columna,int id) {
         this.lexema = lexema;
         this.id = id;
         this.descripcion = descripcion;
         this.fila = fila;
         this.columna = columna;
-    }
-
-    Tokens(String descripcion, String lexema, int fila, int columna, int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getLexema() {

@@ -5,14 +5,18 @@
  */
 package Practica_1;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.paint.Stop;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -90,6 +94,11 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenuItem2.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         jMenuItem2.setText("Generar Automata");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuBar1.add(jMenu2);
@@ -117,6 +126,24 @@ public class Interfaz extends javax.swing.JFrame {
             Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        
+        ErrorLista.clear();
+        Acepatacion.clear();
+        Scanner();
+        
+        if (ErrorLista.isEmpty()) {
+            
+            System.out.println("Acepatcion");
+            tokensHtml();
+            
+        }else {
+            
+            System.out.println("Error");
+            ErrorLexicoHtml();
+        } 
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void open() throws IOException {
 
@@ -272,6 +299,9 @@ public class Interfaz extends javax.swing.JFrame {
                          estado=0;
                      }else if(caracter==(char)62){
                          Aceptar("Mayor que", Character.toString(caracter), fila, columna, 36);
+                         estado=0;
+                     }else if(caracter==(char)126){
+                         Aceptar("Tilde", Character.toString(caracter), fila, columna, 37);
                          estado=0;
                      }//Verificar si es Leta
                      else if(Character.isLetter(caracter)){
@@ -436,9 +466,10 @@ public class Interfaz extends javax.swing.JFrame {
              }
              columna++;
         }
+      
     }
     
-        public void Palabra_Reservada(String Lexema) {
+    public void Palabra_Reservada(String Lexema) {
 
         String Palabra;
         Palabra = Lexema;
@@ -451,9 +482,186 @@ public class Interfaz extends javax.swing.JFrame {
 
     }
     
+    //Reportes HTML
+     public void tokensHtml() {
+
+        String Contenido;
+        Contenido = "<html>"
+                + "<body>"
+                + "<h1 align='center'>TABLA DE TOKENS</h1></br>"
+                + "<table cellpadding='10' border = '1' align='center'>"
+                + "<tr>"
+                + "<td><strong>No."
+                + "</strong></td>"
+                + "<td><strong>Tipo"
+                + "</strong></td>"
+                + "<td><strong>Lexema"
+                + "</strong></td>"
+                + "<td><strong>Id"
+                + "</strong></td>"
+                + "<td><strong>Fila"
+                + "</strong></td>"
+                + "<td><strong>Columna"
+                + "</strong></td>"
+                + "</tr>";
+
+        String CadTokens = "";
+        String tempotk;
+
+        for (int i = 0; i < Acepatacion.size(); i++) {
+
+            tempotk = "";
+            tempotk = "<tr>"
+                    + "<td><strong>" + Integer.toString(i + 1)
+                    + "</strong></td>"
+                    + "<td>" + Acepatacion.get(i).getDescripcion()
+                    + "</td>"
+                    + "<td>"
+                    + Acepatacion.get(i).getLexema()
+                    + "</td>"
+                    + "<td>" + Acepatacion.get(i).getId()
+                    + "</td>"
+                    + "<td>" + Acepatacion.get(i).getFila()
+                    + "</td>"
+                    + "<td>" + Acepatacion.get(i).getColumna()
+                    + "</td>"
+                    + "</tr>";
+            CadTokens = CadTokens + tempotk;
+
+        }
+
+        Contenido = Contenido + CadTokens
+                + "</table>"
+                + "</body>"
+                + "</html>";
+
+
+        /*creando archivo html*/
+        File file = new File("ReporteTokens.html");
+
+        try {
+
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(Contenido);
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Desktop.getDesktop().open(file);
+            //archivo.delete();
+
+        } catch (Exception ex) {
+
+        }
+        /*File.WriteAllText("Reporte de Tokens.html", Contenido);
+            System.Diagnostics.Process.Start("Reporte de Tokens.html");*/
+
+    }
     
-    
-    
+     public void ErrorLexicoHtml() {
+            String Contenido;
+            Contenido = "<html>" +
+            "<body>" +
+            "<h1 align='center'>TABLA DE ERRORES</h1></br>" +
+            "<table cellpadding='10' border = '1' align='center'>" +
+            "<tr>" +
+            "<td><strong>No." +
+            "</strong></td>" +
+
+            "<td><strong>Tipo" +
+            "</strong></td>" +
+            "<td><strong>Lexema" +
+            "</strong></td>" +
+
+           "<td><strong>Fila" +
+            "</strong></td>" +
+
+            "<td><strong>Columna" +
+            "</strong></td>" +
+
+
+            "</tr>";
+
+            String CadError = "";
+            String tempoError="";
+
+            for (int i = 0; i < ErrorLista.size(); i++)
+            {
+
+
+
+                
+                tempoError = "<tr>" +
+                "<td><strong>" + Integer.toString(i + 1) +
+                "</strong></td>" +
+                "<td>" + ErrorLista.get(i).getDescripcion() +
+                "</td>" +
+                "<td>"
+                + ErrorLista.get(i).getLexema() +
+                "</td>" +
+
+
+                "<td>" + ErrorLista.get(i).getFila() +
+                "</td>" +
+
+                "<td>" + ErrorLista.get(i).getColumna() +
+                "</td>" +
+
+
+
+                "</tr>";
+                CadError = CadError + tempoError;
+
+            }
+
+            Contenido = Contenido + CadError +
+            "</table>" +
+            "</body>" +
+            "</html>";
+
+
+            
+            
+            /*creando archivo html*/
+             File file = new File("Error.html");
+
+        try {
+
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(Contenido);
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Desktop.getDesktop().open(file);
+            //archivo.delete();
+
+        } catch (Exception ex) {
+
+        }
+           /* File.WriteAllText("Reporte de Errores.html", Contenido);
+            System.Diagnostics.Process.Start("Reporte de Errores.html");*/
+
+
+
+
+        }
     
 
     /**
