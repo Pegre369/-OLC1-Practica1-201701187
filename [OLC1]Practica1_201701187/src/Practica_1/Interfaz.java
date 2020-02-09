@@ -267,8 +267,23 @@ public class Interfaz extends javax.swing.JFrame {
                      }else if(caracter==(char)59){
                          Aceptar("Punto y coma", Character.toString(caracter), fila, columna, 31);
                          estado=0;
-                     }
-                    //Verficar si es salto de linea
+                     }//Verificar si es Leta
+                     else if(Character.isLetter(caracter)){
+                         Lexema += caracter;
+                         estado = 1;
+                     }//Verificar si es Digito
+                     else if(Character.isDigit(caracter)){
+                         Lexema += caracter;
+                         estado = 2;
+                     }//Verificar si es Diagonal
+                     else if(caracter==(char)47){
+                         Lexema += caracter;
+                         estado = 3;
+                     }//Verificar si es <
+                     else if(caracter==(char)60){
+                         Lexema += caracter;
+                         estado = 5;
+                     }//Verficar si es salto de linea
                     else if (caracter == '\n') {
                         columna = 1;
                         fila++;
@@ -284,18 +299,107 @@ public class Interfaz extends javax.swing.JFrame {
                         estado = 0;
                     }
                  break; 
+                 
+                 
+                 case 1:
                      
+                     //Verificar si es Letra
+                     if(Character.isLetter(caracter)){
+                         Lexema+=caracter;
+                         estado=1;
+                     }
+                     //Verificar si es Digito
+                     else if(Character.isDigit(caracter)){
+                         Lexema+=caracter;
+                         estado=1;
+                     }
+                     //Verificar si es _
+                     else if(caracter == (char) 95){
+                         Lexema+=caracter;
+                         estado=1;
+                     }else{
+                        Palabra_Reservada(Lexema); 
+                        Lexema = "";
+                        estado = 0;
+                        i--;
+                     }
+                 break;    
+                     
+                 case 2:
+                 
+                     //Verificar si es Digito
+                     if(Character.isDigit(caracter)){
+                        Lexema += caracter;
+                        estado = 2;
+                     }else{
+                        Aceptar("Digito", Lexema, fila, columna, 32);
+                        Lexema = "";
+                        estado = 0;
+                        i--;
+                     }
+                     
+                 break;
+                     
+                 case 3:
+                     //Verificar si es Diagonal
+                     if(caracter==(char)47){
+                         Lexema += caracter;
+                         estado = 4;
+                     }else{
+                        Aceptar("Diagonal", Lexema, fila, columna, 33);
+                        Lexema = "";
+                        estado = 0;
+                        i--;
+                     }
+                 break;
+                 
+                 case 4:
+                     
+                     if(caracter != '\n'){
+                         Lexema += caracter;
+                         estado = 4;
+                     }else{
+                        Aceptar("Comentario de una linea", Lexema, fila, columna, 2);
+                        columna = 1;
+                        fila++;
+                        Lexema = "";
+                        estado = 0;
+                     }
+                     
+                     
+                 break;
+                 
+                 case 5:
+                     
+                     //Verificar si es !
+                     
+                     
+                     
+                 break;
                  
                  
              }
-            
-            
-            
-            
-            columna++;
+             columna++;
+        }
+    }
+    
+        public void Palabra_Reservada(String Lexema) {
+
+        String Palabra;
+        Palabra = Lexema;
+
+        if (Palabra.equals("CONJ")) {
+            Aceptar("Palabra Reservada", Lexema, fila, columna, 1);
+        } else {
+            Aceptar("Identificador", Lexema, fila, columna, 5);
         }
 
     }
+    
+    
+    
+    
+    
 
     /**
      * @param args the command line arguments
