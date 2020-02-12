@@ -10,6 +10,6 @@ RegEx2 -> . {digito} * | "_" | {letra} {digito};
 ExpReg3 -> . {digito} . "." + {digito};
 %%
 %%
-ExpReg1 : “este_es_un_lexema_valido”;
-ExpReg3 : “34.44”;
+ExpReg1 : "este_es_un_lexema_valido";
+ExpReg3 : "34.44";
 }
