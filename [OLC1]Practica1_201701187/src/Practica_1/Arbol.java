@@ -50,6 +50,7 @@ public class Arbol {
         for (int i = 0; i < ER.length; i++) {
             if(ER[i]!=null){
               System.out.println(ER[i]);
+              
             }
         }
         
