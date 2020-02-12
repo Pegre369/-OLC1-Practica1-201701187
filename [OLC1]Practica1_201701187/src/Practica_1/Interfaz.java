@@ -27,7 +27,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Interfaz extends javax.swing.JFrame {
 
-    public static String ruta, nombreArchivo;
+    public static String ruta, nombreArchivo, ER;
     public static String temporal = " ";
     public static ArrayList<Tokens> Acepatacion = new ArrayList<Tokens>();
     public static ArrayList<Tokens> ErrorLista = new ArrayList<Tokens>();
@@ -138,6 +138,8 @@ public class Interfaz extends javax.swing.JFrame {
             System.out.println("Acepatcion");
             Reportes_HTML generar = new Reportes_HTML();
             generar.tokensHtml(Acepatacion);
+            Arbol Separar = new Arbol();
+            Separar.ER(Acepatacion);
             
         }else {
             
@@ -255,7 +257,7 @@ public class Interfaz extends javax.swing.JFrame {
                          Aceptar("Punto", Character.toString(caracter), fila, columna, 17);
                          estado=0;
                      }else if(caracter==(char)58){
-                         Aceptar("Punto", Character.toString(caracter), fila, columna, 18);
+                         Aceptar("Dos Puntos", Character.toString(caracter), fila, columna, 18);
                          estado=0;
                      }else if(caracter==(char)61){
                          Aceptar("Signo igual", Character.toString(caracter), fila, columna, 19);
