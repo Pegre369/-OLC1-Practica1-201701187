@@ -138,7 +138,7 @@ public class Interfaz extends javax.swing.JFrame {
             System.out.println("Acepatcion");
             Reportes_HTML generar = new Reportes_HTML();
             generar.tokensHtml(Acepatacion);
-            Arbol Separar = new Arbol();
+            Expresion_Regular Separar = new Expresion_Regular();
             Separar.ER(Acepatacion);
             
         }else {
@@ -208,8 +208,7 @@ public class Interfaz extends javax.swing.JFrame {
         String Documento = comando.getText();
         char caracter = ' ';
         int estado = 0;
-        int comillas = 0;
-        int identificador = 0;
+
 
         for (int i = 0; i < Documento.length(); i++) {
 
@@ -462,7 +461,6 @@ public class Interfaz extends javax.swing.JFrame {
                          Lexema+=caracter;
                          Aceptar("Lexema de entrada", Lexema, fila, columna, 4);
                          Lexema = "";
-                         comillas = 0;
                          estado = 0;
                      }
                      

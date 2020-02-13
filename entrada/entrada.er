@@ -14,7 +14,7 @@ CONJ: digito -> 0~9;
 Expresion1 -> . | "Los " "El " . + | {vocales} {otrasLetras} * | {abecedario} "_";
 Expresion2 -> . +{abecedario}  . {conjnum} ? . ":" +{abecedario};
 Expresion3 -> . . . . . . * | {abecedario} "_" + {conjnum} ">" + {conjnum} "es " | "TRUE" "FALSE" "." ;  //Expresion de COmparacion   
-operaciones -> . +{digito} + . |"+" |"-" |"*" "/" +{digito}
+operaciones -> . +{digito} + . |"+" |"-" |"*" "/" +{digito};
 
 %%
 %%
