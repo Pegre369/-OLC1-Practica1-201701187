@@ -8,153 +8,154 @@ public class Expresion_Regular {
     public static ArrayList<Tokens> ListaTokens;
     public static String cadena;
     public static LinkedList<String> ER = new LinkedList();
-    public static LinkedList<String> Caracteres = new LinkedList();
-    
+    public static ArrayList<Lista_ER> Caracteres = new ArrayList<Lista_ER>();
+
     public void ER(ArrayList<Tokens> Aceptacion) {
 
         ListaTokens = Aceptacion;
 
+        //Recorrido para sacar la ER de la tabla tokens
         for (int i = 0; i < ListaTokens.size(); i++) {
 
+            //Verificar si es este Simbolo >
             if (ListaTokens.get(i).getId() == 36) {
 
                 //System.out.println("Si");
-
+                //Ciclo para validar todo lo que esta despues del > y antes del punto y coma
                 while (ListaTokens.get(i).getId() != 31) {
 
+                    //Verificar si es el punto de concatenacion
                     if (ListaTokens.get(i).getId() == 17) {
 
                         if (cadena == null) {
                             cadena = ListaTokens.get(i).getLexema();
                             i++;
-                            while(ListaTokens.get(i).getId() != 31){
+                            //Valido todo lo que esta antes del punto y coma
+                            while (ListaTokens.get(i).getId() != 31) {
                                 cadena = cadena + ListaTokens.get(i).getLexema();
                                 i++;
                             }
                             ER.add(cadena);
-                            cadena=null;
+                            cadena = null;
                         }
-                        
-                    }else{
+
+                    } else {
                         i++;
                     }
-                    
-                 
+
                 }
 
             }
 
         }
-        
-        
-       /* for (int i = 0; i < ER.size(); i++) {
+
+        //Verificar si mi Linkedlist esta llena
+        /* for (int i = 0; i < ER.size(); i++) {
             if(ER.get(i)!=null){
               System.out.println(ER.get(i));
             }
-        }    */    
-        
+        }    */
         Separacion();
-        
+
     }
-    
-    public void Separacion(){
-        
-            String cc = "";
-            String er ="";
-            char caracter =' ';
-            int estado = 0;
-            
-            for (int i = 0; i < ER.size(); i++) {
-            
-                er = ER.get(i);
-                
-                for (int j = 0; j < er.length(); j++) {
-                    
-                    
-                    caracter = er.charAt(i);
-                    
-                    switch(estado){
-                    
-                        case 0:
-                        
-                                if(caracter == (char)46){
-                                    Caracteres.add(Character.toString(caracter));
-                                    estado = 0;
-                                }else if(caracter == (char)124){
-                                    Caracteres.add(Character.toString(caracter));
-                                    estado = 0;
-                                }else if(caracter==(char)63){
-                                    Caracteres.add(Character.toString(caracter));
-                                    estado = 0;
-                                }else if(caracter==(char)42){
-                                    Caracteres.add(Character.toString(caracter));
-                                    estado = 0;
-                                }else if(caracter==(char)43){
-                                    Caracteres.add(Character.toString(caracter));
-                                    estado = 0;
-                                }else if(caracter==(char)47){
-                                    estado = 1;
-                                }else if(caracter==(char)123){
-                                    estado = 2;
-                                }else if(caracter==(char)59){
-                                   
-                                }
-                            
-                            
+
+    public void agregar(String etiqueta, String descripcion) {
+
+        Lista_ER nuevo = new Lista_ER(etiqueta, descripcion);
+        Caracteres.add(nuevo);
+
+    }
+
+    public void Separacion() {
+
+        String cc = "";
+        String er = "";
+        char caracter = ' ';
+        int estado = 0;
+
+        //Aqui recorro la linkedlist que contiene la ER 
+        for (int i = 0; i < ER.size(); i++) {
+
+            er = ER.get(i);
+
+            //Aqui separo la ER de caracter por caracter y lo guardo en una linkedlist de caracteres
+            for (int j = 0; j < er.length(); j++) {
+
+                caracter = er.charAt(j);
+
+                switch (estado) {
+
+                    case 0:
+
+                        if (caracter == (char) 46) {
+                            agregar(Character.toString(caracter), "Concatenacion");
+                            estado = 0;
+                        } else if (caracter == (char) 124) {
+                            agregar(Character.toString(caracter), "Or");
+                            estado = 0;
+                        } else if (caracter == (char) 63) {
+                            agregar(Character.toString(caracter), "aparicion");
+                            estado = 0;
+                        } else if (caracter == (char) 42) {
+                            agregar(Character.toString(caracter), "kleen");
+                            estado = 0;
+                        } else if (caracter == (char) 43) {
+                            agregar(Character.toString(caracter), "positiva");
+                            estado = 0;
+                        } else if (caracter == (char) 34) {
+                            estado = 1;
+                        } else if (caracter == (char) 123) {
+                            estado = 2;
+                        } else if (caracter == (char) 59) {
+
+                        }
+
                         break;
-                    
-                        
-                        case 1:
+
+                    case 1:
+
+                        if (caracter != (char) 34) {
+                            cc += caracter;
+                        } else {
                             
-                                if(caracter!=(char)47){
-                                    cc += caracter;
-                                }else{
-                                    Caracteres.add(cc);
-                                    cc="";
-                                    estado =0;
-                                }
-                        
+                            agregar(cc, "cadena");
+                            cc = "";
+                            estado = 0;
+                        }
+
                         break;
-                        
-                        case 2:
+
+                    case 2:
+
+                        if (caracter != (char) 125) {
+                            cc += caracter;
+                        } else {
                             
-                                if(caracter!=(char)125){
-                                    cc += caracter;
-                                }else{
-                                    Caracteres.add(cc);
-                                    cc="";
-                                    estado =0;
-                                }
-                            
+                            agregar(cc, "identificador");
+                            cc = "";
+                            estado = 0;
+                        }
+
                         break;
-                        
-                    
-                    }
-                        
-                    
-                    
-                    
-                    
+
                 }
-                
-                
-                for (int j = 0; j < Caracteres.size(); j++) {
-                    
-                    if(Caracteres.get(j)!= null){
-                        
-                    System.out.println(Caracteres.get(j));
-                
-                    }
+
+            }
+
+            //Verificacion si separa la Expresion Regular  es correcta 
+          /*  for (int j = 0; j < Caracteres.size(); j++) {
+
+                if (Caracteres.get(j) != null) {
+
+                    System.out.println(Caracteres.get(j).getEtiqueta() + " -> " + Caracteres.get(j).getDescripcion());
+
                 }
-                
-                break;
-                
+            }
+
+            break;*/
+
         }
-            
-            
-            
-        
+
     }
-    
-    
+
 }
