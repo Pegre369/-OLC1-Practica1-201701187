@@ -63,7 +63,7 @@ public class Arbol {
 
                 raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
 
-            } else if (raiz.izquierda.descripcion == "kleen" || raiz.izquierda.descripcion == "positiva" || raiz.izquierda.descripcion == "aparicion") {
+            } else if (raiz.izquierda.descripcion == "kleen" || raiz.izquierda.descripcion == "positiva" || raiz.izquierda.descripcion == "aparicion"||raiz.izquierda.descripcion == "Concatenacion" || raiz.izquierda.descripcion == "Or") {
 
                 raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
 
@@ -71,7 +71,7 @@ public class Arbol {
 
                 raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
 
-            } else if (raiz.derecha.descripcion == "kleen" || raiz.derecha.descripcion == "positiva" || raiz.derecha.descripcion == "aparicion") {
+            } else if (raiz.derecha.descripcion == "kleen" || raiz.derecha.descripcion == "positiva" || raiz.derecha.descripcion == "aparicion"||raiz.derecha.descripcion == "Concatenacion" || raiz.derecha.descripcion == "Or") {
 
                 raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
 
