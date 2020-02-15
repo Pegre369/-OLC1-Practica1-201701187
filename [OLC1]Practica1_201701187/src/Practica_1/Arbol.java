@@ -56,6 +56,7 @@ public class Arbol {
 
         }
 
+        //Nodos de doble ramas
         if (desc == "Concatenacion" || desc == "Or") {
 
             if (raiz.izquierda == null && raiz.derecha == null) {
@@ -64,12 +65,21 @@ public class Arbol {
 
             } else if (raiz.izquierda != null && raiz.derecha == null) {
 
-                raiz.derecha = agregarnodo(raiz.izquierda, etiqueta, desc);
+                raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
 
+            } else if(raiz.izquierda.descripcion=="kleen"||raiz.izquierda.descripcion=="positiva"||raiz.izquierda.descripcion=="aparicion"){
+                
+                raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
+                
+            }else if(raiz.derecha.descripcion=="kleen"||raiz.derecha.descripcion=="positiva"||raiz.derecha.descripcion=="aparicion"){
+                
+                raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
+                
             }else{
                 return raiz;
             }
 
+            //Nodos de Una rama    
         } else if (desc == "kleen" || desc == "positiva" || desc == "aparicion") {
 
             if (raiz.izquierda != null && raiz.derecha == null) {
@@ -77,13 +87,8 @@ public class Arbol {
             } else {
                 raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
             }
-            
-            if(raiz.izquierda.descripcion == "kleen"){
-                
-            }
-            
-            
 
+            //Nodos Hojas
         } else if (desc == "identificador" || desc == "cadena") {
             if (raiz.izquierda == null && raiz.derecha == null) {
 
