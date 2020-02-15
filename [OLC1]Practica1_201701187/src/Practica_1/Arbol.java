@@ -40,10 +40,7 @@ public class Arbol {
      public void Asignacion(ArrayList<Lista_ER> Caracteres){
         
         cara = Caracteres;
-        
-   //     raiz.izquierda = new Nodo(".","concatenacion");        
-   //     raiz.derecha = new Nodo("#","Cerradura");        
-   //     raiz.izquierda = new Nodo(".","concatenacion");        
+
         
         for(int i = 0; i<cara.size();i++){
             
@@ -56,9 +53,44 @@ public class Arbol {
    
      public void agregarnodo(String etiqueta, String desc){
          
+         Nodo nuevo = new Nodo(etiqueta, desc);
          
+         if(raiz==null){
+              raiz=nuevo;
          
+         }else if(raiz.izquierda==null){
+            
+             
+             
+         }else if(raiz.derecha==null){
+             
+             
+         }
+             
          
      }
      
 }
+
+
+
+
+/*
+Nodo auxiliar = raiz;
+             Nodo padre;
+             
+             while (true) {
+                   
+                 padre = auxiliar;
+                 if(desc=="Concatenacion"){
+                     auxiliar=auxiliar.izquierda;
+                     if(auxiliar==null){
+                         padre.izquierda = nuevo;
+                         return;
+                     }
+                 }
+                 
+                 
+             }
+             
+*/
