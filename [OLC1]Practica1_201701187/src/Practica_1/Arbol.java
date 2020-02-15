@@ -63,19 +63,19 @@ public class Arbol {
 
                 raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
 
+            } else if (raiz.izquierda.descripcion == "kleen" || raiz.izquierda.descripcion == "positiva" || raiz.izquierda.descripcion == "aparicion") {
+
+                raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
+
             } else if (raiz.izquierda != null && raiz.derecha == null) {
 
                 raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
 
-            } else if(raiz.izquierda.descripcion=="kleen"||raiz.izquierda.descripcion=="positiva"||raiz.izquierda.descripcion=="aparicion"){
-                
-                raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
-                
-            }else if(raiz.derecha.descripcion=="kleen"||raiz.derecha.descripcion=="positiva"||raiz.derecha.descripcion=="aparicion"){
-                
-                raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
-                
-            }else{
+            } else if (raiz.derecha.descripcion == "kleen" || raiz.derecha.descripcion == "positiva" || raiz.derecha.descripcion == "aparicion") {
+
+                raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
+
+            } else {
                 return raiz;
             }
 
@@ -83,26 +83,47 @@ public class Arbol {
         } else if (desc == "kleen" || desc == "positiva" || desc == "aparicion") {
 
             if (raiz.izquierda != null && raiz.derecha == null) {
+
                 raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
+
             } else {
+
                 raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
+
             }
 
             //Nodos Hojas
         } else if (desc == "identificador" || desc == "cadena") {
+
             if (raiz.izquierda == null && raiz.derecha == null) {
+
+                raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
+
+            } else if (raiz.izquierda.descripcion == "kleen" || raiz.izquierda.descripcion == "positiva" || raiz.izquierda.descripcion == "aparicion") {
+
+                raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
+
+            } else if (raiz.izquierda.descripcion == "Concatenacion" || raiz.izquierda.descripcion == "Or") {
 
                 raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
 
             } else if (raiz.izquierda != null && raiz.derecha == null) {
 
-                raiz.derecha = agregarnodo(raiz.izquierda, etiqueta, desc);
+                raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
+
+            } else if (raiz.derecha.descripcion == "kleen" || raiz.derecha.descripcion == "positiva" || raiz.derecha.descripcion == "aparicion") {
+
+                raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
+
+            } else if (raiz.derecha.descripcion == "Concatenacion" || raiz.derecha.descripcion == "Or") {
+
+                raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
 
             } else {
                 return raiz;
             }
         }
-
+//FINAL DEL METODO
         return raiz;
     }
 
