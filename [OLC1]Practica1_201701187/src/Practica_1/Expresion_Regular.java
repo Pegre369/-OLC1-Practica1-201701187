@@ -155,7 +155,9 @@ public class Expresion_Regular {
             break;*/
 
         }
-
+        
+        Arbol Ab = new Arbol();
+        Ab.Asignacion(Caracteres);
     }
 
 }
