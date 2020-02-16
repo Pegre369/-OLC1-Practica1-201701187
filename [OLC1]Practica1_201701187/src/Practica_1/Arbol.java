@@ -26,6 +26,8 @@ public class Arbol {
     // Clase del arbol
     Nodo raiz;
     public static ArrayList<Lista_ER> cara;
+    public static int i;
+    public static boolean lleno = false;
 
     public Arbol() {
 
@@ -37,7 +39,7 @@ public class Arbol {
 
         cara = Caracteres;
 
-        for (int i = 0; i < cara.size(); i++) {
+        for (i = 0; i < cara.size(); i++) {
 
             //System.out.println(cara.get(i).getEtiqueta() + " -> " + cara.get(i).getDescripcion());
             agregar(cara.get(i).getEtiqueta(), cara.get(i).getDescripcion());
@@ -59,11 +61,11 @@ public class Arbol {
         //Nodos de doble ramas
         if (desc == "Concatenacion" || desc == "Or") {
 
-            if (raiz.izquierda == null && raiz.derecha == null) {
+           if (raiz.izquierda == null && raiz.derecha == null) {
 
                 raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
 
-            } else if (raiz.izquierda.descripcion == "kleen" || raiz.izquierda.descripcion == "positiva" || raiz.izquierda.descripcion == "aparicion"||raiz.izquierda.descripcion == "Concatenacion" || raiz.izquierda.descripcion == "Or") {
+            } else if (raiz.izquierda.descripcion == "kleen" || raiz.izquierda.descripcion == "positiva" || raiz.izquierda.descripcion == "aparicion" || raiz.izquierda.descripcion == "Concatenacion" || raiz.izquierda.descripcion == "Or") {
 
                 raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
 
@@ -71,7 +73,7 @@ public class Arbol {
 
                 raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
 
-            } else if (raiz.derecha.descripcion == "kleen" || raiz.derecha.descripcion == "positiva" || raiz.derecha.descripcion == "aparicion"||raiz.derecha.descripcion == "Concatenacion" || raiz.derecha.descripcion == "Or") {
+            } else if (raiz.derecha.descripcion == "kleen" || raiz.derecha.descripcion == "positiva" || raiz.derecha.descripcion == "aparicion" || raiz.derecha.descripcion == "Concatenacion" || raiz.derecha.descripcion == "Or") {
 
                 raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
 
@@ -82,14 +84,25 @@ public class Arbol {
             //Nodos de Una rama    
         } else if (desc == "kleen" || desc == "positiva" || desc == "aparicion") {
 
-            if (raiz.izquierda != null && raiz.derecha == null) {
+            if (raiz.izquierda == null && raiz.derecha == null) {
+
+                raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
+
+            } else if (raiz.izquierda.descripcion == "Concatenacion" || raiz.izquierda.descripcion == "Or") {
+
+                raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
+
+            } else if (raiz.izquierda != null && raiz.derecha == null) {
+
+                raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
+
+            } else if (raiz.derecha.descripcion == "Concatenacion" || raiz.derecha.descripcion == "Or") {
 
                 raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
 
             } else {
 
-                raiz.izquierda = agregarnodo(raiz.izquierda, etiqueta, desc);
-
+                return raiz;
             }
 
             //Nodos Hojas
@@ -120,8 +133,10 @@ public class Arbol {
                 raiz.derecha = agregarnodo(raiz.derecha, etiqueta, desc);
 
             } else {
+
                 return raiz;
             }
+
         }
 //FINAL DEL METODO
         return raiz;
