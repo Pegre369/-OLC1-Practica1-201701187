@@ -139,7 +139,13 @@ public class Interfaz extends javax.swing.JFrame {
             Reportes_HTML generar = new Reportes_HTML();
             //generar.tokensHtml(Acepatacion);
             Expresion_Regular Separar = new Expresion_Regular();
-            Separar.ER(Acepatacion);
+            try {
+                Separar.ER(Acepatacion);
+            } catch (IOException ex) {
+                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }else {
             

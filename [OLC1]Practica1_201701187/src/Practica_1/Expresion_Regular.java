@@ -1,5 +1,6 @@
 package Practica_1;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -10,7 +11,7 @@ public class Expresion_Regular {
     public static LinkedList<String> ER = new LinkedList();
     public static ArrayList<Lista_ER> Caracteres = new ArrayList<Lista_ER>();
 
-    public void ER(ArrayList<Tokens> Aceptacion) {
+    public void ER(ArrayList<Tokens> Aceptacion) throws IOException, InterruptedException {
 
         ListaTokens = Aceptacion;
 
@@ -66,7 +67,7 @@ public class Expresion_Regular {
 
     }
 
-    public void Separacion() {
+    public void Separacion() throws IOException, InterruptedException {
 
         String cc = "";
         String er = "";
@@ -156,8 +157,8 @@ public class Expresion_Regular {
 
         }
         
-        Arbol Ab = new Arbol();
-        Ab.Asignacion(Caracteres);
+        Arbol Ab = new Arbol(Caracteres);
+
     }
 
 }
