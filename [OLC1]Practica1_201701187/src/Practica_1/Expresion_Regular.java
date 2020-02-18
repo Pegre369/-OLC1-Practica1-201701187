@@ -10,6 +10,7 @@ public class Expresion_Regular {
     public static String cadena;
     public static LinkedList<String> ER = new LinkedList();
     public static ArrayList<Lista_ER> Caracteres = new ArrayList<Lista_ER>();
+    public static int index=1;
 
     public void ER(ArrayList<Tokens> Aceptacion) throws IOException, InterruptedException {
 
@@ -118,7 +119,7 @@ public class Expresion_Regular {
                         if (caracter != (char) 34) {
                             cc += caracter;
                         } else {
-                            
+
                             agregar(cc, "cadena");
                             cc = "";
                             estado = 0;
@@ -131,7 +132,7 @@ public class Expresion_Regular {
                         if (caracter != (char) 125) {
                             cc += caracter;
                         } else {
-                            
+
                             agregar(cc, "identificador");
                             cc = "";
                             estado = 0;
@@ -144,7 +145,7 @@ public class Expresion_Regular {
             }
 
             //Verificacion si separa la Expresion Regular  es correcta 
-          /*  for (int j = 0; j < Caracteres.size(); j++) {
+            /*  for (int j = 0; j < Caracteres.size(); j++) {
 
                 if (Caracteres.get(j) != null) {
 
@@ -154,10 +155,9 @@ public class Expresion_Regular {
             }
 
             break;*/
-
+            new Arbol(Caracteres, index);
+            index++;
         }
-        
-        Arbol Ab = new Arbol(Caracteres);
 
     }
 

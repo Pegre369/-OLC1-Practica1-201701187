@@ -1,0 +1,22 @@
+digraph g{
+node [shape = record, heigth=.1];
+"Practica_1.Arbol$Nodo@51ec19e"[label = "|{abecedario|}|"];
+"Practica_1.Arbol$Nodo@50e7db28"[label = "|{+|}|"];
+"Practica_1.Arbol$Nodo@50e7db28"->"Practica_1.Arbol$Nodo@51ec19e";
+"Practica_1.Arbol$Nodo@74e84ac8"[label = "|{.|}|"];
+"Practica_1.Arbol$Nodo@74e84ac8"->"Practica_1.Arbol$Nodo@222591e0";
+"Practica_1.Arbol$Nodo@74e84ac8"->"Practica_1.Arbol$Nodo@50e7db28";
+"Practica_1.Arbol$Nodo@5144b60b"[label = "|{conjnum|}|"];
+"Practica_1.Arbol$Nodo@222591e0"[label = "|{.|}|"];
+"Practica_1.Arbol$Nodo@222591e0"->"Practica_1.Arbol$Nodo@3f141990";
+"Practica_1.Arbol$Nodo@222591e0"->"Practica_1.Arbol$Nodo@5144b60b";
+"Practica_1.Arbol$Nodo@99caab0"[label = "|{:|}|"];
+"Practica_1.Arbol$Nodo@73890f2"[label = "|{.|}|"];
+"Practica_1.Arbol$Nodo@73890f2"->"Practica_1.Arbol$Nodo@73b88af0";
+"Practica_1.Arbol$Nodo@73890f2"->"Practica_1.Arbol$Nodo@99caab0";
+"Practica_1.Arbol$Nodo@6cffc58e"[label = "|{abecedario|}|"];
+"Practica_1.Arbol$Nodo@73b88af0"[label = "|{+|}|"];
+"Practica_1.Arbol$Nodo@73b88af0"->"Practica_1.Arbol$Nodo@6cffc58e";
+"Practica_1.Arbol$Nodo@3f141990"[label = "|{?|}|"];
+"Practica_1.Arbol$Nodo@3f141990"->"Practica_1.Arbol$Nodo@73890f2";
+}
