@@ -76,7 +76,8 @@ public class Expresion_Regular {
         int estado = 0;
 
         //Aqui recorro la linkedlist que contiene la ER 
-        for (int i = 0; i < ER.size(); i++) {
+        agregar(".", "Concatenacion");
+        for (int i = 1; i < ER.size(); i++) {
 
             er = ER.get(i);
 
@@ -155,6 +156,7 @@ public class Expresion_Regular {
             }
 
             break;*/
+            agregar("#", "Aceptacion");
             new Arbol(Caracteres, index);
             index++;
         }

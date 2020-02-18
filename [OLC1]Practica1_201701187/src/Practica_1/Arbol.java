@@ -112,6 +112,12 @@ public class Arbol {
                 Nodo id = new Nodo(cara.get(punterodelista).getEtiqueta(), cara.get(punterodelista).getDescripcion());
                 punterodelista++;
                 return id;
+            
+            //Si es un Id se trata como Hoja    
+            case "Aceptacion":
+                Nodo aceptar = new Nodo(cara.get(punterodelista).getEtiqueta(), cara.get(punterodelista).getDescripcion());
+                punterodelista++;
+                return aceptar;
 
             default:
                 return null;
@@ -139,12 +145,12 @@ public class Arbol {
             Texto_Graphiz = Texto_Graphiz + "\"" + temporal.toString() + "\"" + "[label = \"Primeros: |{" + temporal.etiquetas + "|}|\"];\n";
 
             if (temporal.derecha != null) {
-            Texto_Graphiz = Texto_Graphiz + "\""+temporal.toString()+"\""+"->"+"\""+temporal.derecha.toString()+"\";\n";    
-           }
+                Texto_Graphiz = Texto_Graphiz + "\"" + temporal.toString() + "\"" + "->" + "\"" + temporal.derecha.toString() + "\";\n";
+            }
 
             if (temporal.izquierda != null) {
-                Texto_Graphiz = Texto_Graphiz + "\""+temporal.toString()+"\""+"->"+"\""+temporal.izquierda.toString()+"\";\n";
-          }
+                Texto_Graphiz = Texto_Graphiz + "\"" + temporal.toString() + "\"" + "->" + "\"" + temporal.izquierda.toString() + "\";\n";
+            }
 
             Recorrer_Arbol(temporal.derecha);
         }
