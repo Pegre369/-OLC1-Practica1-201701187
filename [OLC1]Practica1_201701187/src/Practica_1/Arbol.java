@@ -44,7 +44,7 @@ public class Arbol {
         this.index = inde;
         raiz = Agregar();
         ArbolER();
-
+        punterodelista=0;
     }
 
     Nodo Agregar() {
@@ -142,7 +142,8 @@ public class Arbol {
         if (temporal != null) {
 
             Recorrer_Arbol(temporal.izquierda);
-            Texto_Graphiz = Texto_Graphiz + "\"" + temporal.toString() + "\"" + "[label = \"Primeros: |{" + temporal.etiquetas + "|}|\"];\n";
+            
+            Texto_Graphiz = Texto_Graphiz + "\"" + temporal.toString() + "\"" + "[label = \"Primeros: |{ |"+ temporal.etiquetas +"}|\"];\n";
 
             if (temporal.derecha != null) {
                 Texto_Graphiz = Texto_Graphiz + "\"" + temporal.toString() + "\"" + "->" + "\"" + temporal.derecha.toString() + "\";\n";

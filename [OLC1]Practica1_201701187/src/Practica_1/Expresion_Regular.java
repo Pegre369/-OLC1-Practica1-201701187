@@ -77,7 +77,7 @@ public class Expresion_Regular {
 
         //Aqui recorro la linkedlist que contiene la ER 
         agregar(".", "Concatenacion");
-        for (int i = 1; i < ER.size(); i++) {
+        for (int i = 0; i < ER.size(); i++) {
 
             er = ER.get(i);
 
@@ -159,6 +159,7 @@ public class Expresion_Regular {
             agregar("#", "Aceptacion");
             new Arbol(Caracteres, index);
             index++;
+            Caracteres.clear();
         }
 
     }
