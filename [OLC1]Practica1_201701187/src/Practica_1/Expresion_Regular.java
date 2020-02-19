@@ -10,7 +10,7 @@ public class Expresion_Regular {
     public static String cadena;
     public static LinkedList<String> ER = new LinkedList();
     public static ArrayList<Lista_ER> Caracteres = new ArrayList<Lista_ER>();
-    public static int index=1;
+    public static int index = 1;
 
     public void ER(ArrayList<Tokens> Aceptacion) throws IOException, InterruptedException {
 
@@ -76,8 +76,8 @@ public class Expresion_Regular {
         int estado = 0;
 
         //Aqui recorro la linkedlist que contiene la ER 
-        agregar(".", "Concatenacion");
         for (int i = 0; i < ER.size(); i++) {
+            agregar(".", "Concatenacion");
 
             er = ER.get(i);
 

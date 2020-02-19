@@ -128,13 +128,13 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        
+
         ErrorLista.clear();
         Acepatacion.clear();
         Scanner();
-        
+
         if (ErrorLista.isEmpty()) {
-            
+
             System.out.println("Acepatcion");
             Reportes_HTML generar = new Reportes_HTML();
             //generar.tokensHtml(Acepatacion);
@@ -146,9 +146,9 @@ public class Interfaz extends javax.swing.JFrame {
             } catch (InterruptedException ex) {
                 Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        }else {
-            
+
+        } else {
+
             System.out.println("Error");
             Reportes_HTML generar = new Reportes_HTML();
             generar.ErrorLexicoHtml(ErrorLista);
@@ -215,268 +215,263 @@ public class Interfaz extends javax.swing.JFrame {
         char caracter = ' ';
         int estado = 0;
 
-
         for (int i = 0; i < Documento.length(); i++) {
 
             caracter = Documento.charAt(i);
 
-             switch (estado) {
-                 
-                 case 0:
-                     
-                     // Verificacion de Simbolos Permitidos #,$,%,&,',(,),*,+,,,-,.,:,=,?,@,[,\,],^,_,`,{,|,}
-                     if (caracter==(char)35) {
-                         Aceptar("Numeral", Character.toString(caracter), fila, columna, 6);
-                         estado=0;
-                     }else if(caracter==(char)36){
-                         Aceptar("Signo de Pesos", Character.toString(caracter), fila, columna, 7);
-                         estado=0;
-                     }else if(caracter==(char)37){
-                         Aceptar("Signo de Porcentaje", Character.toString(caracter), fila, columna, 8);
-                         estado=0;
-                     }else if(caracter==(char)38){
-                         Aceptar("Ampersand", Character.toString(caracter), fila, columna, 9);
-                         estado=0;
-                     }else if(caracter==(char)39){
-                         Aceptar("Comillas simple", Character.toString(caracter), fila, columna, 10);
-                         estado=0;
-                     }else if(caracter==(char)40){
-                         Aceptar("Parentesis que abre", Character.toString(caracter), fila, columna, 11);
-                         estado=0;
-                     }else if(caracter==(char)41){
-                         Aceptar("Parentesis que cierra", Character.toString(caracter), fila, columna, 12);
-                         estado=0;
-                     }else if(caracter==(char)42){
-                         Aceptar("Asterisco", Character.toString(caracter), fila, columna, 13);
-                         estado=0;
-                     }else if(caracter==(char)43){
-                         Aceptar("Signo más", Character.toString(caracter), fila, columna, 14);
-                         estado=0;
-                     }else if(caracter==(char)44){
-                         Aceptar("Coma", Character.toString(caracter), fila, columna, 15);
-                         estado=0;
-                     }else if(caracter==(char)45){
-                         Aceptar("Signo menos", Character.toString(caracter), fila, columna, 16);
-                         estado=0;
-                     }else if(caracter==(char)46){
-                         Aceptar("Punto", Character.toString(caracter), fila, columna, 17);
-                         estado=0;
-                     }else if(caracter==(char)58){
-                         Aceptar("Dos Puntos", Character.toString(caracter), fila, columna, 18);
-                         estado=0;
-                     }else if(caracter==(char)61){
-                         Aceptar("Signo igual", Character.toString(caracter), fila, columna, 19);
-                         estado=0;
-                     }else if(caracter==(char)63){
-                         Aceptar("Signo de interrogación", Character.toString(caracter), fila, columna, 20);
-                         estado=0;
-                     }else if(caracter==(char)64){
-                         Aceptar("Arroba", Character.toString(caracter), fila, columna, 21);
-                         estado=0;
-                     }else if(caracter==(char)91){
-                         Aceptar("Corchete que abre", Character.toString(caracter), fila, columna, 22);
-                         estado=0;
-                     }else if(caracter==(char)92){
-                         Aceptar("Diagonal invertida", Character.toString(caracter), fila, columna, 23);
-                         estado=0;
-                     }else if(caracter==(char)93){
-                         Aceptar("Corchete que cierra", Character.toString(caracter), fila, columna, 24);
-                         estado=0;
-                     }else if(caracter==(char)94){
-                         Aceptar("Acento circunflejo", Character.toString(caracter), fila, columna, 25);
-                         estado=0;
-                     }else if(caracter==(char)95){
-                         Aceptar("Guion bajo", Character.toString(caracter), fila, columna, 26);
-                         estado=0;
-                     }else if(caracter==(char)96){
-                         Aceptar("Acento grave", Character.toString(caracter), fila, columna, 27);
-                         estado=0;
-                     }else if(caracter==(char)123){
-                         Aceptar("Llave que abre", Character.toString(caracter), fila, columna, 28);
-                         estado=0;
-                     }else if(caracter==(char)124){
-                         Aceptar("Barra Vertical", Character.toString(caracter), fila, columna, 29);
-                         estado=0;
-                     }else if(caracter==(char)125){
-                         Aceptar("Llave que cierra", Character.toString(caracter), fila, columna, 30);
-                         estado=0;
-                     }else if(caracter==(char)59){
-                         Aceptar("Punto y coma", Character.toString(caracter), fila, columna, 31);
-                         estado=0;
-                     }else if(caracter==(char)33){
-                         Aceptar("Signo de admiración", Character.toString(caracter), fila, columna, 35);
-                         estado=0;
-                     }else if(caracter==(char)62){
-                         Aceptar("Mayor que", Character.toString(caracter), fila, columna, 36);
-                         estado=0;
-                     }else if(caracter==(char)126){
-                         Aceptar("Tilde", Character.toString(caracter), fila, columna, 37);
-                         estado=0;
-                     }//Verificar si es Leta
-                     else if(Character.isLetter(caracter)){
-                         Lexema += caracter;
-                         estado = 1;
-                     }//Verificar si es Digito
-                     else if(Character.isDigit(caracter)){
-                         Lexema += caracter;
-                         estado = 2;
-                     }//Verificar si es Diagonal
-                     else if(caracter==(char)47){
-                         Lexema += caracter;
-                         estado = 3;
-                     }//Verificar si es <
-                     else if(caracter==(char)60){
-                         Lexema += caracter;
-                         estado = 5;
-                     }//Verificar si son Comillas
-                     else if(caracter==(char)34){
-                         Lexema += caracter;
-                         estado = 8;
-                     }//Verficar si es salto de linea
+            switch (estado) {
+
+                case 0:
+
+                    // Verificacion de Simbolos Permitidos #,$,%,&,',(,),*,+,,,-,.,:,=,?,@,[,\,],^,_,`,{,|,}
+                    if (caracter == (char) 35) {
+                        Aceptar("Numeral", Character.toString(caracter), fila, columna, 6);
+                        estado = 0;
+                    } else if (caracter == (char) 36) {
+                        Aceptar("Signo de Pesos", Character.toString(caracter), fila, columna, 7);
+                        estado = 0;
+                    } else if (caracter == (char) 37) {
+                        Aceptar("Signo de Porcentaje", Character.toString(caracter), fila, columna, 8);
+                        estado = 0;
+                    } else if (caracter == (char) 38) {
+                        Aceptar("Ampersand", Character.toString(caracter), fila, columna, 9);
+                        estado = 0;
+                    } else if (caracter == (char) 39) {
+                        Aceptar("Comillas simple", Character.toString(caracter), fila, columna, 10);
+                        estado = 0;
+                    } else if (caracter == (char) 40) {
+                        Aceptar("Parentesis que abre", Character.toString(caracter), fila, columna, 11);
+                        estado = 0;
+                    } else if (caracter == (char) 41) {
+                        Aceptar("Parentesis que cierra", Character.toString(caracter), fila, columna, 12);
+                        estado = 0;
+                    } else if (caracter == (char) 42) {
+                        Aceptar("Asterisco", Character.toString(caracter), fila, columna, 13);
+                        estado = 0;
+                    } else if (caracter == (char) 43) {
+                        Aceptar("Signo más", Character.toString(caracter), fila, columna, 14);
+                        estado = 0;
+                    } else if (caracter == (char) 44) {
+                        Aceptar("Coma", Character.toString(caracter), fila, columna, 15);
+                        estado = 0;
+                    } else if (caracter == (char) 45) {
+                        Aceptar("Signo menos", Character.toString(caracter), fila, columna, 16);
+                        estado = 0;
+                    } else if (caracter == (char) 46) {
+                        Aceptar("Punto", Character.toString(caracter), fila, columna, 17);
+                        estado = 0;
+                    } else if (caracter == (char) 58) {
+                        Aceptar("Dos Puntos", Character.toString(caracter), fila, columna, 18);
+                        estado = 0;
+                    } else if (caracter == (char) 61) {
+                        Aceptar("Signo igual", Character.toString(caracter), fila, columna, 19);
+                        estado = 0;
+                    } else if (caracter == (char) 63) {
+                        Aceptar("Signo de interrogación", Character.toString(caracter), fila, columna, 20);
+                        estado = 0;
+                    } else if (caracter == (char) 64) {
+                        Aceptar("Arroba", Character.toString(caracter), fila, columna, 21);
+                        estado = 0;
+                    } else if (caracter == (char) 91) {
+                        Aceptar("Corchete que abre", Character.toString(caracter), fila, columna, 22);
+                        estado = 0;
+                    } else if (caracter == (char) 92) {
+                        Aceptar("Diagonal invertida", Character.toString(caracter), fila, columna, 23);
+                        estado = 0;
+                    } else if (caracter == (char) 93) {
+                        Aceptar("Corchete que cierra", Character.toString(caracter), fila, columna, 24);
+                        estado = 0;
+                    } else if (caracter == (char) 94) {
+                        Aceptar("Acento circunflejo", Character.toString(caracter), fila, columna, 25);
+                        estado = 0;
+                    } else if (caracter == (char) 95) {
+                        Aceptar("Guion bajo", Character.toString(caracter), fila, columna, 26);
+                        estado = 0;
+                    } else if (caracter == (char) 96) {
+                        Aceptar("Acento grave", Character.toString(caracter), fila, columna, 27);
+                        estado = 0;
+                    } else if (caracter == (char) 123) {
+                        Aceptar("Llave que abre", Character.toString(caracter), fila, columna, 28);
+                        estado = 0;
+                    } else if (caracter == (char) 124) {
+                        Aceptar("Barra Vertical", Character.toString(caracter), fila, columna, 29);
+                        estado = 0;
+                    } else if (caracter == (char) 125) {
+                        Aceptar("Llave que cierra", Character.toString(caracter), fila, columna, 30);
+                        estado = 0;
+                    } else if (caracter == (char) 59) {
+                        Aceptar("Punto y coma", Character.toString(caracter), fila, columna, 31);
+                        estado = 0;
+                    } else if (caracter == (char) 33) {
+                        Aceptar("Signo de admiración", Character.toString(caracter), fila, columna, 35);
+                        estado = 0;
+                    } else if (caracter == (char) 62) {
+                        Aceptar("Mayor que", Character.toString(caracter), fila, columna, 36);
+                        estado = 0;
+                    } else if (caracter == (char) 126) {
+                        Aceptar("Tilde", Character.toString(caracter), fila, columna, 37);
+                        estado = 0;
+                    }//Verificar si es Leta
+                    else if (Character.isLetter(caracter)) {
+                        Lexema += caracter;
+                        estado = 1;
+                    }//Verificar si es Digito
+                    else if (Character.isDigit(caracter)) {
+                        Lexema += caracter;
+                        estado = 2;
+                    }//Verificar si es Diagonal
+                    else if (caracter == (char) 47) {
+                        Lexema += caracter;
+                        estado = 3;
+                    }//Verificar si es <
+                    else if (caracter == (char) 60) {
+                        Lexema += caracter;
+                        estado = 5;
+                    }//Verificar si son Comillas
+                    else if (caracter == (char) 34) {
+                        Lexema += caracter;
+                        estado = 8;
+                    }//Verficar si es salto de linea
                     else if (caracter == '\n') {
                         columna = 1;
                         fila++;
                         estado = 0;
-                    }
-                    //Si es un espacio en blanco, tab, etc.
+                    } //Si es un espacio en blanco, tab, etc.
                     else if (caracter == ' ' | caracter == '\t' | caracter == '\b' | caracter == '\r' | caracter == '\f') {
-                        
-                    }else {
+
+                    } else {
                         Tokens Error = new Tokens("Error Lexico", Character.toString(caracter), fila, columna, 0);
                         ErrorLista.add(Error);
                         Lexema = "";
                         estado = 0;
                     }
-                 break; 
-                 
-                 case 1:
-                     
-                     //Verificar si es Letra
-                     if(Character.isLetter(caracter)){
-                         Lexema+=caracter;
-                         estado=1;
-                     }
-                     //Verificar si es Digito
-                     else if(Character.isDigit(caracter)){
-                         Lexema+=caracter;
-                         estado=1;
-                     }
-                     //Verificar si es _
-                     else if(caracter == (char) 95){
-                         Lexema+=caracter;
-                         estado=1;
-                     }else{
-                        Palabra_Reservada(Lexema); 
+                    break;
+
+                case 1:
+
+                    //Verificar si es Letra
+                    if (Character.isLetter(caracter)) {
+                        Lexema += caracter;
+                        estado = 1;
+                    } //Verificar si es Digito
+                    else if (Character.isDigit(caracter)) {
+                        Lexema += caracter;
+                        estado = 1;
+                    } //Verificar si es _
+                    else if (caracter == (char) 95) {
+                        Lexema += caracter;
+                        estado = 1;
+                    } else {
+                        Palabra_Reservada(Lexema);
                         Lexema = "";
                         estado = 0;
                         i--;
-                     }
-                 break;    
-                     
-                 case 2:
-                 
-                     //Verificar si es Digito
-                     if(Character.isDigit(caracter)){
+                    }
+                    break;
+
+                case 2:
+
+                    //Verificar si es Digito
+                    if (Character.isDigit(caracter)) {
                         Lexema += caracter;
                         estado = 2;
-                     }else{
+                    } else {
                         Aceptar("Digito", Lexema, fila, columna, 32);
                         Lexema = "";
                         estado = 0;
                         i--;
-                     }
-                     
-                 break;
-                     
-                 case 3:
-                     //Verificar si es Diagonal
-                     if(caracter==(char)47){
-                         Lexema += caracter;
-                         estado = 4;
-                     }else{
+                    }
+
+                    break;
+
+                case 3:
+                    //Verificar si es Diagonal
+                    if (caracter == (char) 47) {
+                        Lexema += caracter;
+                        estado = 4;
+                    } else {
                         Aceptar("Diagonal", Lexema, fila, columna, 33);
                         Lexema = "";
                         estado = 0;
                         i--;
-                     }
-                 break;
-                 
-                 case 4:
-                     
-                     if(caracter != '\n'){
-                         Lexema += caracter;
-                         estado = 4;
-                     }else{
+                    }
+                    break;
+
+                case 4:
+
+                    if (caracter != '\n') {
+                        Lexema += caracter;
+                        estado = 4;
+                    } else {
                         Aceptar("Comentario de una linea", Lexema, fila, columna, 2);
                         columna = 1;
                         fila++;
                         Lexema = "";
                         estado = 0;
-                     }
-                     
-                     
-                 break;
-                 
-                 case 5:
-                     
-                     //Verificar si es !
-                     if(caracter==(char)33){
-                         Lexema+=caracter;
-                         estado=6;
-                     }else{
-                         Aceptar("Menor que", Lexema, fila, columna, 34);
-                         Lexema="";
-                         estado = 0;
-                         i--;
-                     }    
-                     
-                 break;
-                 
-                 case 6:
-                     
-                    if(caracter!=(char)33){
-                        Lexema+=caracter;
+                    }
+
+                    break;
+
+                case 5:
+
+                    //Verificar si es !
+                    if (caracter == (char) 33) {
+                        Lexema += caracter;
                         estado = 6;
-                    }else{
-                      Lexema+=caracter;
-                      estado = 7;  
-                 }
-                 break;    
-                 
-                 case 7: 
-                 
-                     //Verificar si es >
-                     if(caracter==(char)62){
-                         Lexema+=caracter;
-                         Aceptar("Comentario Multilineas", Lexema, fila, columna, 3);
-                         Lexema = "";
-                         estado = 0;
-                     }else{
-                         Lexema+=caracter;
-                         estado = 6;
-                     } 
-                     
-                 break;
-                 
-                 case 8:
-                     
-                     if(caracter!=(char)34){
-                         Lexema+=caracter;
-                         estado = 8;
-                     }else{
-                         Lexema+=caracter;
-                         Aceptar("Lexema de entrada", Lexema, fila, columna, 4);
-                         Lexema = "";
-                         estado = 0;
-                     }
-                     
-                 break;    
-             }
-             columna++;
+                    } else {
+                        Aceptar("Menor que", Lexema, fila, columna, 34);
+                        Lexema = "";
+                        estado = 0;
+                        i--;
+                    }
+
+                    break;
+
+                case 6:
+
+                    if (caracter != (char) 33) {
+                        Lexema += caracter;
+                        estado = 6;
+                    } else {
+                        Lexema += caracter;
+                        estado = 7;
+                    }
+                    break;
+
+                case 7:
+
+                    //Verificar si es >
+                    if (caracter == (char) 62) {
+                        Lexema += caracter;
+                        Aceptar("Comentario Multilineas", Lexema, fila, columna, 3);
+                        Lexema = "";
+                        estado = 0;
+                    } else {
+                        Lexema += caracter;
+                        estado = 6;
+                    }
+
+                    break;
+
+                case 8:
+
+                    if (caracter != (char) 34) {
+                        Lexema += caracter;
+                        estado = 8;
+                    } else {
+                        Lexema += caracter;
+                        Aceptar("Lexema de entrada", Lexema, fila, columna, 4);
+                        Lexema = "";
+                        estado = 0;
+                    }
+
+                    break;
+            }
+            columna++;
         }
-      
+
     }
-    
+
     public void Palabra_Reservada(String Lexema) {
 
         String Palabra;
@@ -489,8 +484,6 @@ public class Interfaz extends javax.swing.JFrame {
         }
 
     }
-    
-   
 
     /**
      * @param args the command line arguments

@@ -1,22 +1,26 @@
 digraph g{
 node [shape = record, heigth=.1];
-"Practica_1.Arbol$Nodo@35db4715"[label = "Primeros: |{ |abecedario}|"];
-"Practica_1.Arbol$Nodo@55fa5c83"[label = "Primeros: |{ |+}|"];
+"Practica_1.Arbol$Nodo@35db4715"[label = "P: 1 |{No Anulable |abecedario}|U:1 "];
+"Practica_1.Arbol$Nodo@55fa5c83"[label = "P: 1 |{No Anulable |+}|U:1 "];
 "Practica_1.Arbol$Nodo@55fa5c83"->"Practica_1.Arbol$Nodo@35db4715";
-"Practica_1.Arbol$Nodo@7ad0766e"[label = "Primeros: |{ |.}|"];
+"Practica_1.Arbol$Nodo@7ad0766e"[label = "P: 1 |{No Anulable |.}|U:2,4 "];
 "Practica_1.Arbol$Nodo@7ad0766e"->"Practica_1.Arbol$Nodo@3025a48c";
 "Practica_1.Arbol$Nodo@7ad0766e"->"Practica_1.Arbol$Nodo@55fa5c83";
-"Practica_1.Arbol$Nodo@5f29ae72"[label = "Primeros: |{ |conjnum}|"];
-"Practica_1.Arbol$Nodo@3025a48c"[label = "Primeros: |{ |.}|"];
+"Practica_1.Arbol$Nodo@5f29ae72"[label = "P: 2 |{No Anulable |conjnum}|U:2 "];
+"Practica_1.Arbol$Nodo@3025a48c"[label = "P: 2 |{No Anulable |.}|U:2,4 "];
 "Practica_1.Arbol$Nodo@3025a48c"->"Practica_1.Arbol$Nodo@58b0ef50";
 "Practica_1.Arbol$Nodo@3025a48c"->"Practica_1.Arbol$Nodo@5f29ae72";
-"Practica_1.Arbol$Nodo@21aa812e"[label = "Primeros: |{ |:}|"];
-"Practica_1.Arbol$Nodo@3cb64053"[label = "Primeros: |{ |.}|"];
+"Practica_1.Arbol$Nodo@21aa812e"[label = "P: 3 |{No Anulable |:}|U:3 "];
+"Practica_1.Arbol$Nodo@3cb64053"[label = "P: 3 |{No Anulable |.}|U:4 "];
 "Practica_1.Arbol$Nodo@3cb64053"->"Practica_1.Arbol$Nodo@2e7e2389";
 "Practica_1.Arbol$Nodo@3cb64053"->"Practica_1.Arbol$Nodo@21aa812e";
-"Practica_1.Arbol$Nodo@716b9379"[label = "Primeros: |{ |abecedario}|"];
-"Practica_1.Arbol$Nodo@2e7e2389"[label = "Primeros: |{ |+}|"];
+"Practica_1.Arbol$Nodo@716b9379"[label = "P: 4 |{No Anulable |abecedario}|U:4 "];
+"Practica_1.Arbol$Nodo@2e7e2389"[label = "P: 4 |{No Anulable |+}|U:4 "];
 "Practica_1.Arbol$Nodo@2e7e2389"->"Practica_1.Arbol$Nodo@716b9379";
-"Practica_1.Arbol$Nodo@58b0ef50"[label = "Primeros: |{ |?}|"];
+"Practica_1.Arbol$Nodo@58b0ef50"[label = "P: 3 |{Anulable |?}|U:4 "];
 "Practica_1.Arbol$Nodo@58b0ef50"->"Practica_1.Arbol$Nodo@3cb64053";
+"Practica_1.Arbol$Nodo@4bdcf8b"[label = "P: 1 |{No Anulable |.}|U:5 "];
+"Practica_1.Arbol$Nodo@4bdcf8b"->"Practica_1.Arbol$Nodo@a87a397";
+"Practica_1.Arbol$Nodo@4bdcf8b"->"Practica_1.Arbol$Nodo@7ad0766e";
+"Practica_1.Arbol$Nodo@a87a397"[label = "P: 5 |{No Anulable |#}|U:5 "];
 }
