@@ -45,22 +45,24 @@ public class Arbol {
     public static ArrayList<Lista_Follow> Siguientes = new ArrayList<>();
     public static int punterodelista;
     public static String Texto_Graphiz;
-    public int index, primero = 1, ultimo = 1;
+    public int index, primero = 1, ultimo = 1, indez;
 
-    public Arbol(ArrayList<Lista_ER> Caracteres, int inde) throws IOException, InterruptedException {
+    public Arbol(ArrayList<Lista_ER> Caracteres, int inde, int folow) throws IOException, InterruptedException {
 
         this.cara = Caracteres;
         this.index = inde;
+        this.indez = folow;
         raiz = Agregar();
         ArbolER();
         Follow(raiz);
-        Ordenar();
-        for (int i = 0; i < Siguientes.size(); i++) {
+        /* for (int i = 0; i < Siguientes.size(); i++) {
 
             System.out.println(Siguientes.get(i).getHoja() + "->" + Siguientes.get(i).getNumero() + "->" + Siguientes.get(i).getFollow());
 
-        }
-
+        }*/
+        Tabla_Follow generar = new Tabla_Follow();
+        generar.tokensHtml(Siguientes, "Follow" + indez);
+        Siguientes.clear();
         punterodelista = 0;
     }
 
@@ -273,25 +275,25 @@ public class Arbol {
 
             Follow(raiz.izquierda);
 
-            switch (raiz.etiquetas) {
+            switch (raiz.descripcion) {
 
-                case "+":
-                  //  System.out.println("positiva");
+                case "positiva":
+                    //  System.out.println("positiva");
                     String primero_positivo = raiz.Primeros;
                     String ultimo_positivo = raiz.Ultimos;
-                    recorer(primero_positivo, ultimo_positivo);
-                    
+                    recorer(ultimo_positivo, primero_positivo);
+
                     break;
 
-                case "*":
-                   // System.out.println("kleen");
+                case "kleen":
+                    // System.out.println("kleen");
                     String primero_kleen = raiz.Primeros;
                     String ultimo_kleen = raiz.Ultimos;
-                    recorer(primero_kleen, ultimo_kleen);
+                    recorer(ultimo_kleen, primero_kleen);
                     break;
 
-                case ".":
-                   // System.out.println("concatenacion");
+                case "Concatenacion":
+                    // System.out.println("concatenacion");
                     //System.out.println("");
                     /* System.out.println(raiz.izquierda.Ultimos);
                     System.out.println(raiz.derecha.Primeros);
@@ -301,6 +303,8 @@ public class Arbol {
                     recorer(ultimo_conca, primero_conca);
                     break;
 
+                default:
+                    break;
 
             }
 
@@ -332,10 +336,19 @@ public class Arbol {
 
                 if (Siguientes.get(i).getNumero() == Integer.parseInt(f.get(vector))) {
 
-                    a = ult + "," + Siguientes.get(i).getFollow();
-                    Siguientes.get(i).setFollow(a);
-                    a=" ";
-                    
+                    if (Siguientes.get(i).getFollow().equals("")) {
+
+                        a = ult;
+                        Siguientes.get(i).setFollow(a);
+                        a = " ";
+
+                    } else {
+
+                        a = Siguientes.get(i).getFollow() + "," + ult;
+                        Siguientes.get(i).setFollow(a);
+                        a = " ";
+
+                    }
                     break;
                 }
 
@@ -346,12 +359,6 @@ public class Arbol {
 
     }
 
-    
-    public void Ordenar(){
-        
-    }
-    
-    
     public void agregar_follow(String hoja, int Numero, String sus_siguientes) {
 
         Lista_Follow add = new Lista_Follow(hoja, Numero, sus_siguientes);
