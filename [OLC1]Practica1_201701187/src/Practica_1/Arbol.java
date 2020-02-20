@@ -1,7 +1,9 @@
 package Practica_1;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Arbol {
 
@@ -40,6 +42,7 @@ public class Arbol {
     // Clase del arbol
     public Nodo raiz = null;
     public static ArrayList<Lista_ER> cara;
+    public static ArrayList<Lista_Follow> Siguientes = new ArrayList<>();
     public static int punterodelista;
     public static String Texto_Graphiz;
     public int index, primero = 1, ultimo = 1;
@@ -50,6 +53,14 @@ public class Arbol {
         this.index = inde;
         raiz = Agregar();
         ArbolER();
+        Follow(raiz);
+        Ordenar();
+        for (int i = 0; i < Siguientes.size(); i++) {
+
+            System.out.println(Siguientes.get(i).getHoja() + "->" + Siguientes.get(i).getNumero() + "->" + Siguientes.get(i).getFollow());
+
+        }
+
         punterodelista = 0;
     }
 
@@ -66,25 +77,29 @@ public class Arbol {
                 Nodo conca_derecha = Agregar();
                 concatenacion.izquierda = conca_izquierda;
                 concatenacion.derecha = conca_derecha;
-                
+
                 //Anulables
                 if (conca_izquierda.Anulabre == "Anulable" && conca_derecha.Anulabre == "Anulable") {
                     concatenacion.Anulabre = "Anulable";
-                } else {
+                } else if (conca_izquierda.Anulabre == "Anulable" && conca_derecha.Anulabre == "No Anulable") {
+                    concatenacion.Anulabre = "No Anulable";
+                } else if (conca_izquierda.Anulabre == "No Anulable" && conca_derecha.Anulabre == "Anulable") {
+                    concatenacion.Anulabre = "No Anulable";
+                } else if (conca_izquierda.Anulabre == "No Anulable" && conca_derecha.Anulabre == "No Anulable") {
                     concatenacion.Anulabre = "No Anulable";
                 }
-                
+
                 //Primeros de concatenacion
-                if(conca_izquierda.Anulabre == "Anulable" ){
-                    concatenacion.Primeros = conca_izquierda.Primeros + ","+conca_derecha.Primeros;
-                }else{
+                if (conca_izquierda.Anulabre == "Anulable") {
+                    concatenacion.Primeros = conca_izquierda.Primeros + "," + conca_derecha.Primeros;
+                } else {
                     concatenacion.Primeros = conca_izquierda.Primeros;
                 }
 
                 //Ultimos de concatenacion
-                if(conca_derecha.Anulabre == "Anulable" ){
-                    concatenacion.Ultimos = conca_izquierda.Ultimos + ","+conca_derecha.Ultimos;
-                }else{
+                if (conca_derecha.Anulabre == "Anulable") {
+                    concatenacion.Ultimos = conca_izquierda.Ultimos + "," + conca_derecha.Ultimos;
+                } else {
                     concatenacion.Ultimos = conca_derecha.Ultimos;
                 }
 
@@ -99,17 +114,21 @@ public class Arbol {
                 Nodo or_derecha = Agregar();
                 or.izquierda = or_izquierda;
                 or.derecha = or_derecha;
-                
+
                 //Anulables
                 if (or_izquierda.Anulabre == "No Anulable" && or_derecha.Anulabre == "No Anulable") {
                     or.Anulabre = "No Anulable";
-                } else {
+                } else if (or_izquierda.Anulabre == "Anulable" && or_derecha.Anulabre == "No Anulable") {
+                    or.Anulabre = "Anulable";
+                } else if (or_izquierda.Anulabre == "No Anulable" && or_derecha.Anulabre == "Anulable") {
+                    or.Anulabre = "Anulable";
+                } else if (or_izquierda.Anulabre == "Anulable" && or_derecha.Anulabre == "Anulable") {
                     or.Anulabre = "Anulable";
                 }
-                
+
                 //Primeros
                 or.Primeros = or_izquierda.Primeros + "," + or_derecha.Primeros;
-                
+
                 //Ultimos
                 or.Ultimos = or_izquierda.Ultimos + "," + or_derecha.Ultimos;
 
@@ -123,6 +142,8 @@ public class Arbol {
                 Nodo kleen_izquierda = Agregar();
                 kleen.izquierda = kleen_izquierda;
                 if (kleen_izquierda.Anulabre == "No Anulable") {
+                    kleen.Anulabre = "Anulable";
+                } else if (kleen_izquierda.Anulabre == "Anulable") {
                     kleen.Anulabre = "Anulable";
                 }
                 //Primeros
@@ -141,6 +162,8 @@ public class Arbol {
                 positiva.izquierda = positiva_izquierda;
                 if (positiva_izquierda.Anulabre == "Anulable") {
                     positiva.Anulabre = "No Anulable";
+                } else if (positiva_izquierda.Anulabre == "No Anulable") {
+                    positiva.Anulabre = "No Anulable";
                 }
                 //Primeros
                 positiva.Primeros = positiva_izquierda.Primeros;
@@ -158,6 +181,8 @@ public class Arbol {
                 aparicion.izquierda = aparicion_izquierda;
                 if (aparicion_izquierda.Anulabre == "No Anulable") {
                     aparicion.Anulabre = "Anulable";
+                } else if (aparicion_izquierda.Anulabre == "Anulable") {
+                    aparicion.Anulabre = "Anulable";
                 }
                 //Primeros
                 aparicion.Primeros = aparicion_izquierda.Primeros;
@@ -169,6 +194,7 @@ public class Arbol {
             case "cadena":
 
                 Nodo cadena = new Nodo(cara.get(punterodelista).getEtiqueta(), cara.get(punterodelista).getDescripcion(), "No Anulable", String.valueOf(primero), String.valueOf(ultimo));
+                agregar_follow(cara.get(punterodelista).getEtiqueta(), primero, "");
                 punterodelista++;
                 primero++;
                 ultimo++;
@@ -177,6 +203,7 @@ public class Arbol {
             //Si es un Id se trata como Hoja    
             case "identificador":
                 Nodo id = new Nodo(cara.get(punterodelista).getEtiqueta(), cara.get(punterodelista).getDescripcion(), "No Anulable", String.valueOf(primero), String.valueOf(ultimo));
+                agregar_follow(cara.get(punterodelista).getEtiqueta(), primero, "");
                 punterodelista++;
                 primero++;
                 ultimo++;
@@ -185,6 +212,7 @@ public class Arbol {
             //Si es un Id se trata como Hoja    
             case "Aceptacion":
                 Nodo aceptar = new Nodo(cara.get(punterodelista).getEtiqueta(), cara.get(punterodelista).getDescripcion(), "No Anulable", String.valueOf(primero), String.valueOf(ultimo));
+                agregar_follow(cara.get(punterodelista).getEtiqueta(), primero, "");
                 punterodelista++;
                 primero++;
                 ultimo++;
@@ -236,4 +264,98 @@ public class Arbol {
 
     }
 
+    //Tabla Follows
+    public static LinkedList<String> f = new LinkedList();
+
+    public void Follow(Nodo raiz) {
+
+        if (raiz != null) {
+
+            Follow(raiz.izquierda);
+
+            switch (raiz.etiquetas) {
+
+                case "+":
+                  //  System.out.println("positiva");
+                    String primero_positivo = raiz.Primeros;
+                    String ultimo_positivo = raiz.Ultimos;
+                    recorer(primero_positivo, ultimo_positivo);
+                    
+                    break;
+
+                case "*":
+                   // System.out.println("kleen");
+                    String primero_kleen = raiz.Primeros;
+                    String ultimo_kleen = raiz.Ultimos;
+                    recorer(primero_kleen, ultimo_kleen);
+                    break;
+
+                case ".":
+                   // System.out.println("concatenacion");
+                    //System.out.println("");
+                    /* System.out.println(raiz.izquierda.Ultimos);
+                    System.out.println(raiz.derecha.Primeros);
+                    System.out.println("");*/
+                    String ultimo_conca = raiz.izquierda.Ultimos;
+                    String primero_conca = raiz.derecha.Primeros;
+                    recorer(ultimo_conca, primero_conca);
+                    break;
+
+
+            }
+
+            Follow(raiz.derecha);
+        }
+
+    }
+
+    public void recorer(String primer, String ult) {
+
+        String pseparar = primer;
+        char caracter = ' ';
+
+        for (int i = 0; i < pseparar.length(); i++) {
+
+            caracter = pseparar.charAt(i);
+
+            if (Character.isDigit(caracter)) {
+                f.add(Character.toString(caracter));
+            }
+
+        }
+
+        String a;
+
+        for (int vector = 0; vector < f.size(); vector++) {
+
+            for (int i = 0; i < Siguientes.size(); i++) {
+
+                if (Siguientes.get(i).getNumero() == Integer.parseInt(f.get(vector))) {
+
+                    a = ult + "," + Siguientes.get(i).getFollow();
+                    Siguientes.get(i).setFollow(a);
+                    a=" ";
+                    
+                    break;
+                }
+
+            }
+
+        }
+        f.clear();
+
+    }
+
+    
+    public void Ordenar(){
+        
+    }
+    
+    
+    public void agregar_follow(String hoja, int Numero, String sus_siguientes) {
+
+        Lista_Follow add = new Lista_Follow(hoja, Numero, sus_siguientes);
+        Siguientes.add(add);
+
+    }
 }
