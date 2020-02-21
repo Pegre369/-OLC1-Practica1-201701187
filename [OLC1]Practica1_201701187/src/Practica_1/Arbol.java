@@ -58,8 +58,10 @@ public class Arbol {
         ArbolER();
         Follow(raiz);
         Tabla_Follow generar = new Tabla_Follow();
-        //generar.TablaFollow(Siguientes, "Follow" + indez);
+        generar.TablaFollow(Siguientes, "Follow" + indez);
         estaddoinicial();
+        Tabla_Transicion_Graficar graficar = new Tabla_Transicion_Graficar();
+        graficar.Tabla("S0{"+raiz.Primeros+"}", encabezado, "Trancision"+indez);
         Siguientes.clear();
         punterodelista = 0;
     }
@@ -366,19 +368,54 @@ public class Arbol {
 
     //Tabla de Trancisiones
     public static LinkedList<String> lista = new LinkedList();
+    public static LinkedList<String> encabezado = new LinkedList();
+    public static String comparar;
     public int numero_estado = 1;
+    public int posicion = 1;
 
     public void estaddoinicial() {
 
         String S = raiz.Primeros;
         String nombre = "S0";
+        Encabezado();
 
         agregar_estado(nombre, S, "");
 
-        Buscar(S);
-        for (int i = 0; i < Tabla_Tansicion.size(); i++) {
-            System.out.println(Tabla_Tansicion.get(i).getEstado() + "->" + Tabla_Tansicion.get(i).getLista() + "->" + Tabla_Tansicion.get(i).getSimbolo());
+        //Buscar(S);
+    }
+
+    public void Encabezado() {
+
+        for (int follow = 0; follow < Siguientes.size(); follow++) {
+
+            encabezado.add(Siguientes.get(follow).getHoja());
+
         }
+
+        for (int i = 0; i < encabezado.size(); i++) {
+
+            comparar = encabezado.get(i);
+
+            for (int j = i + 1; j < encabezado.size(); j++) {
+
+                if (comparar.equals(encabezado.get(j))) {
+                    posicion = j;
+                }
+
+                if (posicion != 0) {
+                    encabezado.remove(posicion);
+                    j--;
+                    posicion = 0;
+                }
+
+            }
+
+            if (encabezado.get(i).equals("#")) {
+                encabezado.remove(i);
+            }
+
+        }
+
     }
 
     public void Buscar(String estado) {
