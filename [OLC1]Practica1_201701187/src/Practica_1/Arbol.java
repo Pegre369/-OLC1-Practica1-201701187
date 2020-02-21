@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import javax.swing.text.TabableView;
 
 public class Arbol {
 
@@ -43,6 +44,7 @@ public class Arbol {
     public Nodo raiz = null;
     public static ArrayList<Lista_ER> cara;
     public static ArrayList<Lista_Follow> Siguientes = new ArrayList<>();
+    public static ArrayList<Estado> Tabla_Tansicion = new ArrayList<>();
     public static int punterodelista;
     public static String Texto_Graphiz;
     public int index, primero = 1, ultimo = 1, indez;
@@ -56,8 +58,8 @@ public class Arbol {
         ArbolER();
         Follow(raiz);
         Tabla_Follow generar = new Tabla_Follow();
-        generar.TablaFollow(Siguientes, "Follow" + indez);
-        Encabezado();
+        //generar.TablaFollow(Siguientes, "Follow" + indez);
+        estaddoinicial();
         Siguientes.clear();
         punterodelista = 0;
     }
@@ -363,45 +365,94 @@ public class Arbol {
     }
 
     //Tabla de Trancisiones
-    public String comparar;
-    public LinkedList<String> encabezado = new LinkedList<>();
-    public int posicion;
-    public void Encabezado() {
+    public static LinkedList<String> lista = new LinkedList();
+    public int numero_estado = 1;
 
-        for (int follow = 0; follow < Siguientes.size(); follow++) {
-            
-            encabezado.add(Siguientes.get(follow).getHoja());
+    public void estaddoinicial() {
 
+        String S = raiz.Primeros;
+        String nombre = "S0";
+
+        agregar_estado(nombre, S, "");
+
+        Buscar(S);
+        for (int i = 0; i < Tabla_Tansicion.size(); i++) {
+            System.out.println(Tabla_Tansicion.get(i).getEstado() + "->" + Tabla_Tansicion.get(i).getLista() + "->" + Tabla_Tansicion.get(i).getSimbolo());
         }
-        
-        for (int i = 0; i < encabezado.size(); i++) {
-            
-            comparar = encabezado.get(i);
-            
-            for (int j = i+1; j < encabezado.size(); j++) {
-                
-                if(comparar.equals(encabezado.get(j))){
-                     posicion = j;
-                }
-                
-                if(posicion!=0){
-                    encabezado.remove(posicion);
-                    j--;
-                    posicion=0;
-                }
-                
-            }
-            
-            if(encabezado.get(i).equals("#")){
-                encabezado.remove(i);
-            }
-            
-        }
-  
-
-        
-        
-    }   
     }
 
-    
+    public void Buscar(String estado) {
+
+        String raiz_estado = estado;
+        char caracater = ' ';
+
+        for (int i = 0; i < raiz_estado.length(); i++) {
+
+            caracater = raiz_estado.charAt(i);
+            if (Character.isDigit(caracater)) {
+                lista.add(Character.toString(caracater));
+            }
+
+        }
+
+        Buscar_en_Follows(lista);
+        Verificar();
+
+    }
+
+    public void Buscar_en_Follows(LinkedList<String> lista) {
+
+        //For para mi vector de lista
+        for (int vector = 0; vector < lista.size(); vector++) {
+            //For para buscar en mi tabla follow
+            for (int follow = 0; follow < Siguientes.size(); follow++) {
+
+                //if si lo encuentras 
+                if (Siguientes.get(follow).getNumero() == Integer.parseInt(lista.get(vector))) {
+
+                    agregar_estado("S" + numero_estado, Siguientes.get(follow).getFollow(), Siguientes.get(follow).getHoja());
+                    numero_estado++;
+
+                    break;
+
+                }
+
+            }
+
+        }
+        lista.clear();
+    }
+
+    public String L;
+
+    public void Verificar() {
+
+        for (int i = 1; i < Tabla_Tansicion.size(); i++) {
+            for (int j = i + 1; j < Tabla_Tansicion.size(); j++) {
+
+                if (Tabla_Tansicion.get(j).getLista() == Tabla_Tansicion.get(i).getLista()) {
+
+                    System.out.println("Repetido");
+                    Tabla_Tansicion.get(i).setSimbolo(Tabla_Tansicion.get(i).getSimbolo() + "," + Tabla_Tansicion.get(j).getSimbolo());
+                    Tabla_Tansicion.remove(j);
+                    numero_estado--;
+
+                    L = Tabla_Tansicion.get(i).getLista();
+                    Buscar(L);
+                    break;
+
+                }
+
+            }
+        }
+
+    }
+
+    public void agregar_estado(String nombre_estado, String lista, String Simbolo) {
+
+        Estado add = new Estado(nombre_estado, lista, Simbolo);
+        Tabla_Tansicion.add(add);
+
+    }
+
+}
