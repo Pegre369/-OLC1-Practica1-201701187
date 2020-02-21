@@ -55,13 +55,9 @@ public class Arbol {
         raiz = Agregar();
         ArbolER();
         Follow(raiz);
-        /* for (int i = 0; i < Siguientes.size(); i++) {
-
-            System.out.println(Siguientes.get(i).getHoja() + "->" + Siguientes.get(i).getNumero() + "->" + Siguientes.get(i).getFollow());
-
-        }*/
         Tabla_Follow generar = new Tabla_Follow();
-        generar.tokensHtml(Siguientes, "Follow" + indez);
+        generar.TablaFollow(Siguientes, "Follow" + indez);
+        Encabezado();
         Siguientes.clear();
         punterodelista = 0;
     }
@@ -365,4 +361,47 @@ public class Arbol {
         Siguientes.add(add);
 
     }
-}
+
+    //Tabla de Trancisiones
+    public String comparar;
+    public LinkedList<String> encabezado = new LinkedList<>();
+    public int posicion;
+    public void Encabezado() {
+
+        for (int follow = 0; follow < Siguientes.size(); follow++) {
+            
+            encabezado.add(Siguientes.get(follow).getHoja());
+
+        }
+        
+        for (int i = 0; i < encabezado.size(); i++) {
+            
+            comparar = encabezado.get(i);
+            
+            for (int j = i+1; j < encabezado.size(); j++) {
+                
+                if(comparar.equals(encabezado.get(j))){
+                     posicion = j;
+                }
+                
+                if(posicion!=0){
+                    encabezado.remove(posicion);
+                    j--;
+                    posicion=0;
+                }
+                
+            }
+            
+            if(encabezado.get(i).equals("#")){
+                encabezado.remove(i);
+            }
+            
+        }
+  
+
+        
+        
+    }   
+    }
+
+    

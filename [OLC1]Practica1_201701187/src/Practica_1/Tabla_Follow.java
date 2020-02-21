@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Tabla_Follow {
     
-         public void tokensHtml(ArrayList<Lista_Follow> Acepatacion,String nombre) {
+         public void TablaFollow(ArrayList<Lista_Follow> Acepatacion,String nombre) {
 
         String Contenido;
         Contenido = "<html>"
