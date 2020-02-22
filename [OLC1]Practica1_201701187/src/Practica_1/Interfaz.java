@@ -164,7 +164,7 @@ public class Interfaz extends javax.swing.JFrame {
 
             System.out.println("Acepatcion");
             Reportes_HTML generar = new Reportes_HTML();
-            //generar.tokensHtml(Acepatacion);
+            generar.tokensHtml(Acepatacion);
             Expresion_Regular Separar = new Expresion_Regular();
             try {
                 Separar.ER(Acepatacion);
