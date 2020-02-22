@@ -56,12 +56,19 @@ public class Arbol {
         this.indez = folow;
         raiz = Agregar();
         ArbolER();
+        //////////
         Follow(raiz);
         Tabla_Follow generar = new Tabla_Follow();
         generar.TablaFollow(Siguientes, "Follow" + indez);
+        ///////////
         estaddoinicial();
         Tabla_Transicion_Graficar graficar = new Tabla_Transicion_Graficar();
         graficar.Tabla("S0{"+raiz.Primeros+"}", encabezado, "Trancision"+indez);
+        /////////////
+        Interfaz mandar = new Interfaz();
+        mandar.listanombrefollow("Follow" + indez);
+        mandar.listanombreTransicion("Trancision"+indez);
+        
         Siguientes.clear();
         punterodelista = 0;
     }
@@ -234,6 +241,8 @@ public class Arbol {
         Texto_Graphiz = Texto_Graphiz + "}";
         Generar_Arbol_ER generar = new Generar_Arbol_ER();
         generar.Crear("Arbol" + index, Texto_Graphiz);
+        Interfaz mandar = new Interfaz();
+        mandar.listanombrearbol("Arbol" + index);
         index++;
 
     }

@@ -6,6 +6,7 @@
 package Practica_1;
 
 import java.awt.Desktop;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,9 +15,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.paint.Stop;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -31,6 +35,9 @@ public class Interfaz extends javax.swing.JFrame {
     public static String temporal = " ";
     public static ArrayList<Tokens> Acepatacion = new ArrayList<Tokens>();
     public static ArrayList<Tokens> ErrorLista = new ArrayList<Tokens>();
+    public static LinkedList<String> nombreFollow = new LinkedList<>();
+    public static LinkedList<String> nombreArbol = new LinkedList<>();
+    public static LinkedList<String> nombretrans = new LinkedList<>();
     public int fila = 1;
     public int columna = 0;
 
@@ -54,6 +61,9 @@ public class Interfaz extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         comando = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
+        MostraArbol = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -71,9 +81,26 @@ public class Interfaz extends javax.swing.JFrame {
         jScrollPane1.setBounds(20, 50, 480, 380);
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jLabel1.setText("Archivo de Entrada");
+        jLabel1.setText("Arbol Diagramado");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(30, 20, 170, 26);
+        jLabel1.setBounds(30, 460, 170, 26);
+
+        MostraArbol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostraArbolActionPerformed(evt);
+            }
+        });
+        jPanel1.add(MostraArbol);
+        MostraArbol.setBounds(30, 490, 160, 40);
+
+        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jLabel2.setText("Archivo de Entrada");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(30, 20, 170, 26);
+
+        jLabel3.setText("jLabel3");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(590, 10, 590, 530);
 
         jMenu1.setText("Archivo");
         jMenu1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
@@ -109,11 +136,11 @@ public class Interfaz extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1247, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
 
         pack();
@@ -152,8 +179,27 @@ public class Interfaz extends javax.swing.JFrame {
             System.out.println("Error");
             Reportes_HTML generar = new Reportes_HTML();
             generar.ErrorLexicoHtml(ErrorLista);
-        } 
+        }
+
+        agregar();
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void MostraArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostraArbolActionPerformed
+
+        int posicion;
+        posicion = MostraArbol.getSelectedIndex();
+
+        System.out.println(posicion);
+
+        
+        ImageIcon imgIcon = new ImageIcon("D:\\Casca\\Documents\\Compi 1\\-OLC1-Practica1-201701187\\[OLC1]Practica1_201701187\\" + nombreArbol.get(posicion) + ".png");
+        Image imgEscalada = imgIcon.getImage().getScaledInstance(jLabel3.getWidth(),jLabel3.getHeight(), Image.SCALE_SMOOTH);
+        Icon iconoEscalado = new ImageIcon(imgEscalada);
+        jLabel3.setIcon(iconoEscalado);
+
+
+    }//GEN-LAST:event_MostraArbolActionPerformed
 
     private void open() throws IOException {
 
@@ -485,6 +531,28 @@ public class Interfaz extends javax.swing.JFrame {
 
     }
 
+    public void listanombrearbol(String nombre) {
+        nombreArbol.add(nombre);
+    }
+
+    public void listanombrefollow(String nombre) {
+        nombreFollow.add(nombre);
+    }
+
+    public void listanombreTransicion(String nombre) {
+        nombretrans.add(nombre);
+    }
+
+    public void agregar() {
+
+        for (int i = 0; i < nombreArbol.size(); i++) {
+
+            MostraArbol.addItem(nombreArbol.get(i));
+            System.out.println(nombreArbol.get(i));
+        }
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -521,8 +589,11 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> MostraArbol;
     private javax.swing.JTextPane comando;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
