@@ -208,7 +208,7 @@ public class Interfaz extends javax.swing.JFrame {
         Image imgEscalada = imgIcon.getImage().getScaledInstance(jLabel3.getWidth(),jLabel3.getHeight(), Image.SCALE_SMOOTH);
         Icon iconoEscalado = new ImageIcon(imgEscalada);
         jLabel3.setIcon(iconoEscalado);
-
+        
 
     }//GEN-LAST:event_MostraArbolActionPerformed
 
