@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -67,6 +68,7 @@ public class Interfaz extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -113,6 +115,15 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
+
+        jMenuItem3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jMenuItem3.setText("Guardar");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
 
@@ -201,6 +212,10 @@ public class Interfaz extends javax.swing.JFrame {
 
     }//GEN-LAST:event_MostraArbolActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+       save1();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     private void open() throws IOException {
 
         JFileChooser JFC = new JFileChooser();
@@ -248,6 +263,59 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
 
+     public void save1(){
+              if(ruta != null){
+                try {
+                    FileWriter fichero2 = new FileWriter(ruta);
+                    PrintWriter pw2 = null;
+                    pw2 = new PrintWriter(fichero2);
+                    String[] escribe2 = comando.getText().split("\n");
+                    for(String  e: escribe2){
+                    pw2.println(e);
+                            }
+                        fichero2.close();
+                        JOptionPane.showMessageDialog(null, "Se realizaron los cambios");
+                        temporal = comando.getText();
+                           } catch (IOException ex) {
+                             
+                           }
+            }else{
+                save();
+        }        
+    }
+    
+     public void save(){
+        String texto = comando.getText();//variable para comparacion
+        
+        if (texto.matches("[[ ]*[\n]*[\t]]*")) {
+            JOptionPane.showMessageDialog(null,"No hay texto para guardar!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("todos los archivos *.ER", "er","ER"));
+            int seleccion = fileChooser.showSaveDialog(null);
+            try{
+                if (seleccion == JFileChooser.APPROVE_OPTION){
+                    File JFC = fileChooser.getSelectedFile();
+                    String PATH = JFC.getAbsolutePath();
+                    PrintWriter printwriter = new PrintWriter(JFC);
+                    printwriter.print(comando.getText());
+                    printwriter.close();
+                    
+
+                    if(!(PATH.endsWith(".er"))){
+                        File temp = new File(PATH+".er");
+                        JFC.renameTo(temp);
+                    }
+                    
+                    JOptionPane.showMessageDialog(null,"Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null,"Error al guardar el archivo!", "Oops! Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }           
+    } 
+    
     //SCANER
     public void Aceptar(String descripcion, String lexema, int fila, int columna, int id) {
         Tokens nuevo = new Tokens(descripcion, lexema, fila, columna, id);
@@ -599,6 +667,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
