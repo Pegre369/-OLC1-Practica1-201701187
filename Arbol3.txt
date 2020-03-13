@@ -1,0 +1,26 @@
+digraph g{
+node [shape = record, heigth=.1];
+"Practica_1.Arbol$Nodo@ee5438f"[label = "P: 1 |{No Anulable |abecedario}|U:1 "];
+"Practica_1.Arbol$Nodo@60ccbe84"[label = "P: 1 |{No Anulable |+}|U:1 "];
+"Practica_1.Arbol$Nodo@60ccbe84"->"Practica_1.Arbol$Nodo@ee5438f";
+"Practica_1.Arbol$Nodo@510d6ffd"[label = "P: 1 |{No Anulable |.}|U:2,4 "];
+"Practica_1.Arbol$Nodo@510d6ffd"->"Practica_1.Arbol$Nodo@44e79d85";
+"Practica_1.Arbol$Nodo@510d6ffd"->"Practica_1.Arbol$Nodo@60ccbe84";
+"Practica_1.Arbol$Nodo@603a57ad"[label = "P: 2 |{No Anulable |conjnum}|U:2 "];
+"Practica_1.Arbol$Nodo@44e79d85"[label = "P: 2 |{No Anulable |.}|U:2,4 "];
+"Practica_1.Arbol$Nodo@44e79d85"->"Practica_1.Arbol$Nodo@6507fdb0";
+"Practica_1.Arbol$Nodo@44e79d85"->"Practica_1.Arbol$Nodo@603a57ad";
+"Practica_1.Arbol$Nodo@5f4f046a"[label = "P: 3 |{No Anulable |:}|U:3 "];
+"Practica_1.Arbol$Nodo@273cb1b3"[label = "P: 3 |{No Anulable |.}|U:4 "];
+"Practica_1.Arbol$Nodo@273cb1b3"->"Practica_1.Arbol$Nodo@15090dc6";
+"Practica_1.Arbol$Nodo@273cb1b3"->"Practica_1.Arbol$Nodo@5f4f046a";
+"Practica_1.Arbol$Nodo@4fb988aa"[label = "P: 4 |{No Anulable |abecedario}|U:4 "];
+"Practica_1.Arbol$Nodo@15090dc6"[label = "P: 4 |{No Anulable |+}|U:4 "];
+"Practica_1.Arbol$Nodo@15090dc6"->"Practica_1.Arbol$Nodo@4fb988aa";
+"Practica_1.Arbol$Nodo@6507fdb0"[label = "P: 3 |{Anulable |?}|U:4 "];
+"Practica_1.Arbol$Nodo@6507fdb0"->"Practica_1.Arbol$Nodo@273cb1b3";
+"Practica_1.Arbol$Nodo@68f2a963"[label = "P: 1 |{No Anulable |.}|U:5 "];
+"Practica_1.Arbol$Nodo@68f2a963"->"Practica_1.Arbol$Nodo@2a812ce7";
+"Practica_1.Arbol$Nodo@68f2a963"->"Practica_1.Arbol$Nodo@510d6ffd";
+"Practica_1.Arbol$Nodo@2a812ce7"[label = "P: 5 |{No Anulable |#}|U:5 "];
+}
